@@ -1,10 +1,11 @@
 ###-------------------------------------------------------------------------------------------------
 #####                           CREATE DATASETS FOR USE WITH FASTQTL                           #####
 #
-# Version: Create_mQTL_data.v1.20160404
+# Version: Create_mQTL_data.v1.1.20160406
 #
-# Last update: 2016-04-04
-# Written by: Sander W. van der Laan (s.w.vanderlaan-2@umcutrecht.nl)
+# Last update: 2016-04-06
+# Written by: Sander W. van der Laan (s.w.vanderlaan-2@umcutrecht.nl);
+#             Aisha Gohar (a.gohar@umcutrecht.nl)
 #                                                    
 # Description: Script to create the necessary datasets for use with fastQTL. As per fastQTL 
 #              instructions the file should look like the example below in the end. See also: 
@@ -14,6 +15,10 @@
 #              chr1	173863	173864	ENSG123	-0.50 0.82	-0.71	0.83
 #              chr1	685395	685396	ENSG456	-1.13	1.18	-0.03	0.11
 #              chr1	700304	700305	ENSG789	-1.18	1.32	-0.36	1.26
+#
+# Suggestions:
+#				- make it an Rscript --vanilla with options
+#				- make the type of chromosome (with/out leading zeros) optional
 #
 #
 ###-------------------------------------------------------------------------------------------------
@@ -178,29 +183,8 @@ df.AEMP.fastQTL.temp2 = df.AEMP.fastQTL.temp[,c(2,1,3,4,columnsP)]
 df.AEMB.fastQTL.temp2 = df.AEMB.fastQTL.temp[,c(2,1,3,4,columnsB)]
 
 # Add a leading zero to chromosome 1-9
-df.AEMP.fastQTL.temp2$`#chr`[df.AEMP.fastQTL.temp2$`#chr` == "1"] <- "01"
-df.AEMP.fastQTL.temp2$`#chr`[df.AEMP.fastQTL.temp2$`#chr` == "2"] <- "02"
-df.AEMP.fastQTL.temp2$`#chr`[df.AEMP.fastQTL.temp2$`#chr` == "3"] <- "03"
-df.AEMP.fastQTL.temp2$`#chr`[df.AEMP.fastQTL.temp2$`#chr` == "4"] <- "04"
-df.AEMP.fastQTL.temp2$`#chr`[df.AEMP.fastQTL.temp2$`#chr` == "5"] <- "05"
-df.AEMP.fastQTL.temp2$`#chr`[df.AEMP.fastQTL.temp2$`#chr` == "6"] <- "06"
-df.AEMP.fastQTL.temp2$`#chr`[df.AEMP.fastQTL.temp2$`#chr` == "7"] <- "07"
-df.AEMP.fastQTL.temp2$`#chr`[df.AEMP.fastQTL.temp2$`#chr` == "8"] <- "08"
-df.AEMP.fastQTL.temp2$`#chr`[df.AEMP.fastQTL.temp2$`#chr` == "9"] <- "09"
-df.AEMP.fastQTL.temp2$`#chr`[df.AEMP.fastQTL.temp2$`#chr` == "X"] <- "0X"
-df.AEMP.fastQTL.temp2$`#chr`[df.AEMP.fastQTL.temp2$`#chr` == "Y"] <- "0Y"
-
-df.AEMB.fastQTL.temp2$`#chr`[df.AEMB.fastQTL.temp2$`#chr` == "1"] <- "01"
-df.AEMB.fastQTL.temp2$`#chr`[df.AEMB.fastQTL.temp2$`#chr` == "2"] <- "02"
-df.AEMB.fastQTL.temp2$`#chr`[df.AEMB.fastQTL.temp2$`#chr` == "3"] <- "03"
-df.AEMB.fastQTL.temp2$`#chr`[df.AEMB.fastQTL.temp2$`#chr` == "4"] <- "04"
-df.AEMB.fastQTL.temp2$`#chr`[df.AEMB.fastQTL.temp2$`#chr` == "5"] <- "05"
-df.AEMB.fastQTL.temp2$`#chr`[df.AEMB.fastQTL.temp2$`#chr` == "6"] <- "06"
-df.AEMB.fastQTL.temp2$`#chr`[df.AEMB.fastQTL.temp2$`#chr` == "7"] <- "07"
-df.AEMB.fastQTL.temp2$`#chr`[df.AEMB.fastQTL.temp2$`#chr` == "8"] <- "08"
-df.AEMB.fastQTL.temp2$`#chr`[df.AEMB.fastQTL.temp2$`#chr` == "9"] <- "09"
-df.AEMB.fastQTL.temp2$`#chr`[df.AEMB.fastQTL.temp2$`#chr` == "X"] <- "0X"
-df.AEMB.fastQTL.temp2$`#chr`[df.AEMB.fastQTL.temp2$`#chr` == "Y"] <- "0Y"
+df.AEMP.fastQTL.temp2$'#chr' <- str_pad(df.AEMP.fastQTL.temp2$'#chr', width=2, side="left", pad="0")
+df.AEMB.fastQTL.temp2$'#chr' <- str_pad(df.AEMB.fastQTL.temp2$'#chr', width=2, side="left", pad="0")
 
 # Sort the data
 df.AEMP.fastQTL.temp3 <- as.data.frame(setorder(df.AEMP.fastQTL.temp2, start))
@@ -212,6 +196,12 @@ df.AEMB.fastQTL.temp4 <- as.data.frame(setorder(df.AEMB.fastQTL.temp3, `#chr`))
 df.AEMP.fastQTL <- df.AEMP.fastQTL.temp4[ , c(1,3,4,2,5:492)]
 df.AEMB.fastQTL <- df.AEMB.fastQTL.temp4[ , c(1,3,4,2,5:96)]
 
+# If the dataframe needs to be split by chromosomes for analysis 
+list=c("01","02","03","04","05","06","07","08","09","10","11",
+       "12","13","14","15","16","17","18", "19","20","21","22", "0X", "0Y")
+for (i in list) { 
+  assign(paste("df.AEMP.fastQTL",i,sep="_chr"), as.data.frame(df.AEMP.fastQTL[df.AEMP.fastQTL$"#chr" == i,]))
+}
 
 ###-------------------------------------------------------------------------------------------------
 ### SAVE THE DATA
@@ -248,31 +238,31 @@ write.table(df.AEMB.fastQTL, paste0(OUT_loc,"/aems_blood_450k_QC_443872.bed"),
 ### Website to convert HEX to RGB: http://hex.colorrrs.com.
 ### For some functions you should divide these numbers by 255.
 ###
-###  Color                         HEX       RGB                 CHR       MAF/INFO
+###  Color                         HEX       RGB            CHR       MAF/INFO
 ###-------------------------------------------------------------------------------------------------
-###	yellow                        #FBB820 (251,184,32)	=>	1 		or 1.0 > INFO
-###	gold                          #F59D10 (245,157,16)	=>	2		
-###	salmon                        #E55738 (229,87,56) 	=>	3 		or 0.05 < MAF < 0.2 or 0.4 < INFO < 0.6
+###	yellow                        #FBB820 (251,184,32)		=>	1 		or 1.0 > INFO
+###	gold                          #F59D10 (245,157,16)		=>	2		
+###	salmon                        #E55738 (229,87,56) 		=>	3 		or 0.05 < MAF < 0.2 or 0.4 < INFO < 0.6
 ###	darkpink                      #DB003F ((219,0,63)		=>	4		
-###	lightpink                     #E35493 (227,84,147)	=>	5 		or 0.8 < INFO < 1.0
-###	pink                          #D5267B (213,38,123)	=>	6		
+###	lightpink                     #E35493 (227,84,147)		=>	5 		or 0.8 < INFO < 1.0
+###	pink                          #D5267B (213,38,123)		=>	6		
 ###	hardpink                      #CC0071 (204,0,113)		=>	7		
-###	lightpurple                   #A8448A (168,68,138)	=>	8		
-###	purple                        #9A3480 (154,52,128)	=>	9		
-###	lavendel                      #8D5B9A (141,91,154)	=>	10		
-###	bluepurple                    #705296 (112,82,150)	=>	11		
-###	purpleblue                    #686AA9 (104,106,169)	=>	12		
-###	lightpurpleblue               #6173AD (97,115,173)	=>	13		
-###	seablue                       #4C81BF (76,129,191)	=>	14		
-###	skyblue                       #2F8BC9 (47,139,201)	=>	15		
-###	azurblue                      #1290D9 (18,144,217)	=>	16		 or 0.01 < MAF < 0.05 or 0.2 < INFO < 0.4
-###	lightazurblue                 #1396D8 (19,150,216)	=>	17		
-###	greenblue                     #15A6C1 (21,166,193)	=>	18		
-###	seaweedgreen                  #5EB17F (94,177,127)	=>	19		
-###	yellowgreen                   #86B833 (134,184,51)	=>	20		
-###	lightmossgreen                #C5D220 (197,210,32)	=>	21		
-###	mossgreen                     #9FC228 (159,194,40)	=>	22		or MAF > 0.20 or 0.6 < INFO < 0.8
-###	lightgreen                    #78B113 (120,177,19)	=>	23/X
+###	lightpurple                   #A8448A (168,68,138)		=>	8		
+###	purple                        #9A3480 (154,52,128)		=>	9		
+###	lavendel                      #8D5B9A (141,91,154)		=>	10		
+###	bluepurple                    #705296 (112,82,150)		=>	11		
+###	purpleblue                    #686AA9 (104,106,169)		=>	12		
+###	lightpurpleblue               #6173AD (97,115,173)		=>	13		
+###	seablue                       #4C81BF (76,129,191)		=>	14		
+###	skyblue                       #2F8BC9 (47,139,201)		=>	15		
+###	azurblue                      #1290D9 (18,144,217)		=>	16		 or 0.01 < MAF < 0.05 or 0.2 < INFO < 0.4
+###	lightazurblue                 #1396D8 (19,150,216)		=>	17		
+###	greenblue                     #15A6C1 (21,166,193)		=>	18		
+###	seaweedgreen                  #5EB17F (94,177,127)		=>	19		
+###	yellowgreen                   #86B833 (134,184,51)		=>	20		
+###	lightmossgreen                #C5D220 (197,210,32)		=>	21		
+###	mossgreen                     #9FC228 (159,194,40)		=>	22		or MAF > 0.20 or 0.6 < INFO < 0.8
+###	lightgreen                    #78B113 (120,177,19)		=>	23/X
 ###	green                         #49A01D (73,160,29)		=>	24/Y
 ###	grey                          #595A5C (89,90,92)		=>	25/XY	or MAF < 0.01 or 0.0 < INFO < 0.2
 ###	lightgrey                     #A2A3A4	(162,163,164)	=> 	26/MT
