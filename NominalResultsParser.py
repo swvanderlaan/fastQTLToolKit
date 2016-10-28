@@ -7,9 +7,9 @@ print ""
 print "* Written by         : Tim Bezemer"
 print "* E-mail             : t.bezemer-2@umcutrecht.nl"
 print "* Suggested for by   : Sander W. van der Laan | s.w.vanderlaan-2@umcutrecht.nl"
-print "* Last update        : 2016-10-27"
+print "* Last update        : 2016-10-28"
 print "* Name               : NominalResultsParser"
-print "* Version            : v1.2_20161027"
+print "* Version            : v1.2.1"
 print ""
 print "* Description        : In case of a CTMM eQTL analysis this script will collect all "
 print "                       analysed genes and list their associated ProbeIDs as well as the"
@@ -69,8 +69,8 @@ for l in loci_ids:
 
 			loci[l][g] = []
 
-			###print "\t* gene " + g
-			print "\t* gene " + str(g)
+			print "\t* gene " + g
+			###print "\t* gene " + str(g)
 
 			ProbeIDs = list(set(data[ (data['Locus'] == l) & (data['GeneName'] == g) ]['ProbeID']))
 

@@ -5,8 +5,8 @@
 cat("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     fastQTL RESULTS QUALITY CONTROL & PARSER v2
     \n
-    * Version: fastQTL_QC_v2.1
-    * Last edit: 2016-10-27
+    * Version: v2.2.1
+    * Last edit: 2016-10-28
     * Created by: Sander W. van der Laan | s.w.vanderlaan-2@umcutrecht.nl
     \n
     * Description:  Results parsing and quality control from fastQTL results using CTMM (eQTL) or 
@@ -101,15 +101,26 @@ option_list = list(
 opt = parse_args(OptionParser(option_list=option_list))
 
 ### OPTIONLIST | FOR LOCAL DEBUGGING
-opt$projectdir="/Volumes/MyBookStudioII/Backup/PLINK/analyses/test_qtl/mqtl_aems450k1/"
-opt$outputdir="/Volumes/MyBookStudioII/Backup/PLINK/analyses/test_qtl/mqtl_aems450k1/qtl/rs10953541_CAD"
-#opt$resulttype="NOM"
-opt$resulttype="PERM"
-opt$qtltype="MQTL"
-#opt$resultfile="/Volumes/MyBookStudioII/Backup/PLINK/analyses/test_qtl/mqtl_aems450k1/qtl/rs10953541_CAD/aegs_QC_qtlnom_rs10953541_excl_DEFAULT.txt.gz"
-opt$resultfile="/Volumes/MyBookStudioII/Backup/PLINK/analyses/test_qtl/mqtl_aems450k1/qtl/rs10953541_CAD/aegs_QC_qtlperm_rs10953541_excl_DEFAULT.txt.gz"
-opt$annotfile="/Volumes/MyBookStudioII/Backup/PLINK/_AE_Originals/IlluminaMethylation450K.annotation.txt.gz"
-opt$genstats="/Volumes/MyBookStudioII/Backup/PLINK/analyses/test_qtl/mqtl_aems450k1/qtl/rs10953541_CAD/aegs_1kGp3GoNL5_QC_rs10953541_excl_DEFAULT.stats"
+# opt$projectdir="/Volumes/MyBookStudioII/Backup/PLINK/analyses/test_qtl/mqtl_aems450k1/"
+# opt$outputdir="/Volumes/MyBookStudioII/Backup/PLINK/analyses/test_qtl/mqtl_aems450k1/qtl/rs10953541_CAD"
+# opt$resulttype="NOM"
+# #opt$resulttype="PERM"
+# opt$qtltype="MQTL"
+# opt$resultfile="/Volumes/MyBookStudioII/Backup/PLINK/analyses/test_qtl/mqtl_aems450k1/qtl/rs10953541_CAD/aegs_QC_qtlnom_rs10953541_excl_DEFAULT.txt.gz"
+# #opt$resultfile="/Volumes/MyBookStudioII/Backup/PLINK/analyses/test_qtl/mqtl_aems450k1/qtl/rs10953541_CAD/aegs_QC_qtlperm_rs10953541_excl_DEFAULT.txt.gz"
+# opt$annotfile="/Volumes/MyBookStudioII/Backup/PLINK/_AE_Originals/IlluminaMethylation450K.annotation.txt.gz"
+# opt$genstats="/Volumes/MyBookStudioII/Backup/PLINK/analyses/test_qtl/mqtl_aems450k1/qtl/rs10953541_CAD/aegs_1kGp3GoNL5_QC_rs10953541_excl_DEFAULT.stats"
+# 
+# opt$projectdir="/Volumes/MyBookStudioII/Backup/PLINK/analyses/test_qtl/eqtl_ctmm/"
+# opt$outputdir="/Volumes/MyBookStudioII/Backup/PLINK/analyses/test_qtl/eqtl_ctmm/qtl/rs10953541_CAD"
+# opt$resulttype="NOM"
+# #opt$resulttype="PERM"
+# opt$qtltype="EQTL"
+# opt$resultfile="/Volumes/MyBookStudioII/Backup/PLINK/analyses/test_qtl/eqtl_ctmm/qtl/rs10953541_CAD/ctmm_QC_qtlnom_rs10953541_excl_DEFAULT.txt.gz"
+# #opt$resultfile="/Volumes/MyBookStudioII/Backup/PLINK/analyses/test_qtl/eqtl_ctmm/qtl/rs10953541_CAD/ctmm_QC_qtlperm_rs10953541_excl_DEFAULT.txt.gz"
+# opt$annotfile="/Volumes/MyBookStudioII/Backup/PLINK/_CTMM_Originals/CTMMHumanHT12v4r2_15002873B/annotation_ctmm_all.txt"
+# opt$genstats="/Volumes/MyBookStudioII/Backup/PLINK/analyses/test_qtl/eqtl_ctmm/qtl/rs10953541_CAD/ctmm_1kGp3GoNL5_QC_rs10953541_excl_DEFAULT.stats"
+# 
 ### OPTIONLIST | FOR LOCAL DEBUGGING
 
 if (opt$verbose) {
@@ -160,7 +171,7 @@ if(!is.na(opt$projectdir) & !is.na(opt$resultfile) & !is.na(opt$outputdir) & !is
   ### The type of the analysis will determine what to load 'opt$qtltype' # argument 4
   if(opt$qtltype == "EQTL") { 
     cat ("\n...for a CTMM based eQTL analysis in monocytes...\n")
-    ANNOTATIONSFILE = read.csv(opt$annotfile, head = TRUE, stringsAsFactors = FALSE)
+    ANNOTATIONSFILE = read.csv(opt$annotfile, head = TRUE, stringsAsFactors = FALSE, sep = ",")
     colnames(ANNOTATIONSFILE) = c("EntrezID", "ProbeID", "ArrayID", 
                                   "GeneName", "GeneInfo","Chr", "GeneTxStart", "GeneTxEnd")
   } else if (opt$qtltype == "MQTL") {
