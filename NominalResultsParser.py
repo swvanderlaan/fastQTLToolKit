@@ -1,14 +1,15 @@
 #!/usr/bin/python
 
 print "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-print "                         fastQTL Nominal Results Parser"
-print "                               version 1.2 (20160406)"
+print "                         fastQTL NOMINAL RESULTS PARSER"
+print ""
 print ""
 print "* Written by         : Tim Bezemer"
 print "* E-mail             : t.bezemer-2@umcutrecht.nl"
 print "* Suggested for by   : Sander W. van der Laan | s.w.vanderlaan-2@umcutrecht.nl"
-print "* Last update        : 2016-04-06"
-print "* Version            : NominalResultsParser_v1_2_20160406"
+print "* Last update        : 2016-10-27"
+print "* Name               : NominalResultsParser"
+print "* Version            : v1.2_20161027"
 print ""
 print "* Description        : In case of a CTMM eQTL analysis this script will collect all "
 print "                       analysed genes and list their associated ProbeIDs as well as the"
@@ -17,7 +18,7 @@ print "                       In case of a AEMS mQTL analysis this script will c
 print "                       analysed CpGs and their associated genes, as well as the "
 print "                       the number of variants analysed."
 print "                       In both cases it will produce a LocusZoom (v1.2+) input file"
-print "                       which contains the variant associated (MarkerName, either RSID or CHR:BP) and the "
+print "                       which contains the variant associated (MarkerName) and the "
 print "                       p-value (P-value)."
 print ""
 print "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
@@ -27,32 +28,20 @@ import pandas as pd
 from sys import argv, exit
 from os import mkdir
 from os.path import isdir, isfile
-import argparse
-parser = argparse.ArgumentParser()
 
-parser.add_argument("-f", "--file", help="the filename", type=str)
-parser.add_argument("--chrbp", "--CHRBP", help="Chromosome:BP instead of RSID as MarkerName", action="store_true")
-args = parser.parse_args()
+if len(argv) < 2 or not isfile(argv[1]):
 
-if not args.file:
-
-	print "Usage: " + argv[0] + " --help"
+	print "Invalid filename was supplied."
+	print "Usage: " + argv[0] + " [filename]"
 	print "Please make sure the data file contains the following columns:"
 	print "Locus\tGeneName\tProbeID\tVARIANT\tNominal_P\t"
-	exit()
 	
-
-if not isfile(args.file):
-
-	print "Invalid filename"
-	print "Please make sure the data file contains the following columns:"
-	print "Locus\tGeneName\tProbeID\tVARIANT\tNominal_P\t"
-
 	exit()
 
-fn = args.file
+fn = argv[1]
 
-data = pd.read_csv(fn, '\t')
+###data = pd.read_csv(fn, '\t')
+data = pd.read_csv(fn)
 
 print "Checking for/creating directories loci/ and probes/ ..."
 if not isdir("_loci"): mkdir("_loci")
@@ -80,7 +69,8 @@ for l in loci_ids:
 
 			loci[l][g] = []
 
-			print "\t* gene " + g
+			###print "\t* gene " + g
+			print "\t* gene " + str(g)
 
 			ProbeIDs = list(set(data[ (data['Locus'] == l) & (data['GeneName'] == g) ]['ProbeID']))
 
@@ -93,11 +83,8 @@ for l in loci_ids:
 				variants = data[(data['Locus'] == l) & (data['GeneName'] == g) & (data['ProbeID'] == p) ][['VARIANT', 'Nominal_P', 'Chr', 'BP']]
 				variants_p_below_threshold = data[(data['Locus'] == l) & (data['GeneName'] == g) & (data['ProbeID'] == p) & (data['Nominal_P'] < 0.05) ][['VARIANT', 'Nominal_P', 'Chr', 'BP']]
 				variants.rename(columns = {"VARIANT" : "MarkerName", "Nominal_P" : "P-value"}, inplace=True)
-				
-				if args.chrbp:
+				variants["MarkerName"] = variants.apply(lambda x: str(x['Chr']) + ":" + str(x['BP']), axis=1)
 
-					variants["MarkerName"] = variants.apply(lambda x: str(x['Chr']) + ":" + str(x['BP']), axis=1)
-				
 				variants = variants.drop('Chr', axis=1)
 				variants = variants.drop('BP', axis=1)
 
