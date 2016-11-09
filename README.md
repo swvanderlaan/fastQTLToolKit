@@ -22,7 +22,9 @@ Although we made it easy to just select, copy and paste and run these blocks of 
 
 We have tested fastQTLToolKit on CentOS7, OS X El Capitan (version 10.11.[x]), and macOS Sierra (version 10.12.[x]). 
 
-### REQUIREMENTS for R:
+--------------
+
+#### REQUIREMENTS for R:
 
 These libraries and their dependencies are needed for the R-script to work.
 
@@ -59,21 +61,21 @@ if [ -d ~/git/GWASToolKit/.git ]; then \
 You can select the type of analysis by providing the following _obligatory_ 10 arguments. Some relevant statistics, such as HWE, minor allele count (MAC), and coded allele frequency (CAF) will be added to the final summarized result. LocusZoom style figures will be made automatically for _eQTL-analyses_ alone. 
 
 
-* Argument #1   indicate which study type you want to analyze, so either [AEMS450K1/AEMS450K2/CTMM]:
+* Argument #1 -- indicate which study type you want to analyze, so either [AEMS450K1/AEMS450K2/CTMM]:
 	- AEMS450K1: methylation quantitative trait locus (mQTL) analysis on plaques or blood in the Athero-Express Methylation Study 450K phase 1.
 	- AEMS450K2: mQTL analysis on plaques or blood in the Athero-Express Methylation Study 450K phase 2 [NOTE: this is not yet available.].
 	- CTMM:      expression QTL (eQTL) analysis in monocytes from CTMM.
-* Argument #2   the sample type must be [AEMS450K1: PLAQUES/BLOOD], [AEMS450K2: PLAQUES], or [CTMM: MONOCYTES].
-* Argument #3   the root directory, e.g. /server/folderX/folderY/folderZ/someqtlanalysis.
-* Argument #4   where you want stuff to be save inside the rootdir,  e.g. mqtl_aems450k1
-* Argument #5   project name, e.g. 'CAD'.
-* Argument #6   text file with on each line the regions of interest, refer to example files.
-* Argument #7   the type of exclusion to apply:
+* Argument #2 -- the sample type must be [AEMS450K1: PLAQUES/BLOOD], [AEMS450K2: PLAQUES], or [CTMM: MONOCYTES].
+* Argument #3 -- the root directory, e.g. /server/folderX/folderY/folderZ/someqtlanalysis.
+* Argument #4 -- where you want stuff to be save inside the rootdir,  e.g. mqtl_aems450k1
+* Argument #5 -- project name, e.g. 'CAD'.
+* Argument #6 -- text file with on each line the regions of interest, refer to example files.
+* Argument #7 -- the type of exclusion to apply:
 	- AEMS/CTMM:     DEFAULT/SMOKER/NONSMOKER/MALES/FEMALES/T2D/NONT2D
 	- AEMS-specific: CKD/NONCKD/PRE2007/POST2007/NONAEGS/NONAEGSFEMALES/NONAEGSMALES.
-* Argument #8   text file with excluded covariates, refer to example file.
-* Argument #9   qsub e-mail address, e.g. yourname@mailadres.com.
-* Argument #10  qsub mail settings, e.g. 'beas' - refer to qsub manual.
+* Argument #8 -- text file with excluded covariates, refer to example file.
+* Argument #9 -- qsub e-mail address, e.g. yourname@mailadres.com.
+* Argument #10 -- qsub mail settings, e.g. 'beas' - refer to qsub manual.
 
 --------------
 
