@@ -24,13 +24,25 @@ We have tested fastQTLToolKit on CentOS7, OS X El Capitan (version 10.11.[x]), a
 
 --------------
 
-#### REQUIREMENTS for R:
+#### Requirements
 
-These libraries and their dependencies are needed for the R-script to work.
-
+* ***For R*** These libraries and their dependencies are needed for the R-script to work.
 - "optparse"
 - "tools"
 - "qvalue"
+
+* QCTOOL
+
+### GENERIC SETTINGS
+	SOFTWARE=/hpc/local/CentOS7/dhl_ec/software
+	QCTOOL=${SOFTWARE}/qctool_v1.5-linux-x86_64-static/qctool
+	SNPTEST252=${SOFTWARE}/snptest_v2.5.2_CentOS6.5_x86_64_static/snptest_v2.5.2
+	FASTQTL=${SOFTWARE}/fastqtl_v2.184
+	FASTQCTLADDON=${SOFTWARE}/fastQTLToolKit
+	FASTQTLPARSER=${FASTQCTLADDON}/NominalResultsParser.py
+	LZ13=${SOFTWARE}/locuszoom_1.3/bin/locuszoom
+	BGZIP=${SOFTWARE}/htslib-1.3/bgzip
+	TABIX=${SOFTWARE}/htslib-1.3/tabix
 
 --------------
 
