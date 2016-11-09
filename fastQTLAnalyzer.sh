@@ -89,8 +89,7 @@ script_arguments_error() {
 	echo "========================================================================================================="
 	echo "                                              OPTION LIST"
 	echo ""
-	echo " * Argument #1   indicate which study type you want to analyze, so either:"
-	echo "                 [AEMS450K1/AEMS450K2/CTMM]:"
+	echo " * Argument #1   indicate which study type you want to analyze, so either [AEMS450K1/AEMS450K2/CTMM]:"
 	echo "                 - AEMS450K1: methylation quantitative trait locus (mQTL) analysis "
 	echo "                              on plaques or blood in the Athero-Express Methylation "
 	echo "                              Study 450K phase 1."
@@ -245,12 +244,12 @@ else
 	### FASTQTL SETTINGS
 	### --- THESE COULD BE ARGUMENTS --- ###
 	SEEDNO=91149216
-	PERMSTART="100"
-	PERMEND="1000"
+	PERMSTART="1000"
+	PERMEND="1000000"
 	
 	### QCTOOL SETTINGS
 	### --- THESE COULD BE ARGUMENTS --- ###
-	MAF="0.005"
+	MAF="0.05"
 	INFO="0.9"
 	HWE="6"
 
