@@ -26,23 +26,31 @@ We have tested fastQTLToolKit on CentOS7, OS X El Capitan (version 10.11.[x]), a
 
 #### Requirements
 
-* ***For R*** These libraries and their dependencies are needed for the R-script to work.
+***For R*** 
+These libraries and their dependencies are needed for the R-script to work.
 - "optparse"
 - "tools"
 - "qvalue"
 
-* QCTOOL
+***QCTOOL***
+Needed for the extraction and conversion of required genotype data. Required: v1.5.
 
-### GENERIC SETTINGS
-	SOFTWARE=/hpc/local/CentOS7/dhl_ec/software
-	QCTOOL=${SOFTWARE}/qctool_v1.5-linux-x86_64-static/qctool
-	SNPTEST252=${SOFTWARE}/snptest_v2.5.2_CentOS6.5_x86_64_static/snptest_v2.5.2
-	FASTQTL=${SOFTWARE}/fastqtl_v2.184
-	FASTQCTLADDON=${SOFTWARE}/fastQTLToolKit
-	FASTQTLPARSER=${FASTQCTLADDON}/NominalResultsParser.py
-	LZ13=${SOFTWARE}/locuszoom_1.3/bin/locuszoom
-	BGZIP=${SOFTWARE}/htslib-1.3/bgzip
-	TABIX=${SOFTWARE}/htslib-1.3/tabix
+***SNPTEST***
+Needed for the calculation of summary statistics of the extracted genotype data. Required: v2.5.2.
+
+***fastQTL***
+Needed to run fastQTL. Required: v2.184.
+
+***LocusZoom***
+Needed to generate LocusZoom plots. Required: v1.3.
+
+***BGZip***
+Needed for VCF conversion and gzipping. Required: as part of the htslib-1.3 package.
+
+***Tabix***
+Needed for VCF indexing. Required: as part of the htslib-1.3 package.
+
+####_NOTE_####: the above scripts, tools, and software are all installed on our local system.
 
 --------------
 
@@ -110,6 +118,12 @@ You can select the type of analysis by providing the following _obligatory_ 10 a
 
 ####_NOTE: at the moment these scripts are changing frequently, but for most analyses it should work. Please contact me for support._
 
+--------------
+
+#### Roadmap
+
+- update NominalResultsParser for mQTL analyses.
+- generate regional plots for mQTL analyses.
 
 --------------
 
