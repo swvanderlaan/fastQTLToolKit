@@ -74,21 +74,21 @@ if [ -d ~/git/GWASToolKit/.git ]; then \
 You can select the type of analysis by providing the following _obligatory_ 10 arguments. Some relevant statistics, such as HWE, minor allele count (MAC), and coded allele frequency (CAF) will be added to the final summarized result. LocusZoom style figures will be made automatically for _eQTL-analyses_ alone. 
 
 
-* Argument #1 -- indicate which study type you want to analyze, so either [AEMS450K1/AEMS450K2/CTMM]:
-	- AEMS450K1: methylation quantitative trait locus (mQTL) analysis on plaques or blood in the Athero-Express Methylation Study 450K phase 1.
-	- AEMS450K2: mQTL analysis on plaques or blood in the Athero-Express Methylation Study 450K phase 2 [NOTE: this is not yet available.].
-	- CTMM:      expression QTL (eQTL) analysis in monocytes from CTMM.
-* Argument #2 -- the sample type must be [AEMS450K1: PLAQUES/BLOOD], [AEMS450K2: PLAQUES], or [CTMM: MONOCYTES].
-* Argument #3 -- the root directory, e.g. /server/folderX/folderY/folderZ/someqtlanalysis.
-* Argument #4 -- where you want stuff to be save inside the rootdir,  e.g. mqtl_aems450k1
-* Argument #5 -- project name, e.g. 'CAD'.
-* Argument #6 -- text file with on each line the regions of interest, refer to example files.
-* Argument #7 -- the type of exclusion to apply:
+* ***Argument #1*** -- indicate which study type you want to analyze, so either [AEMS450K1/AEMS450K2/CTMM]:
+	- ****AEMS450K1**** -- methylation quantitative trait locus (mQTL) analysis on plaques or blood in the Athero-Express Methylation Study 450K phase 1.
+	- ****AEMS450K2**** -- mQTL analysis on plaques or blood in the Athero-Express Methylation Study 450K phase 2 [NOTE: this is not yet available.].
+	- ****CTMM**** -- expression QTL (eQTL) analysis in monocytes from CTMM.
+* ***Argument #2*** -- the sample type must be [AEMS450K1: PLAQUES/BLOOD], [AEMS450K2: PLAQUES], or [CTMM: MONOCYTES].
+* ***Argument #3*** -- the root directory, e.g. /server/folderX/folderY/folderZ/someqtlanalysis.
+* ***Argument #4*** -- where you want stuff to be save inside the rootdir,  e.g. mqtl_aems450k1
+* ***Argument #5*** -- project name, e.g. 'CAD'.
+* ***Argument #6*** -- text file with on each line the regions of interest, refer to example files.
+* ***Argument #7*** -- the type of exclusion to apply:
 	- AEMS/CTMM:     DEFAULT/SMOKER/NONSMOKER/MALES/FEMALES/T2D/NONT2D
 	- AEMS-specific: CKD/NONCKD/PRE2007/POST2007/NONAEGS/NONAEGSFEMALES/NONAEGSMALES.
-* Argument #8 -- text file with excluded covariates, refer to example file.
-* Argument #9 -- qsub e-mail address, e.g. yourname@mailadres.com.
-* Argument #10 -- qsub mail settings, e.g. 'beas' - refer to qsub manual.
+* ***Argument #8*** -- text file with excluded covariates, refer to example file.
+* ***Argument #9*** -- qsub e-mail address, e.g. yourname@mailadres.com.
+* ***Argument #10*** -- qsub mail settings, e.g. 'beas' - refer to qsub manual.
 
 --------------
 
@@ -116,19 +116,19 @@ You can select the type of analysis by providing the following _obligatory_ 10 a
 
 #### File descriptions
 
-- excl_cov_eqtl.txt				list of covariates that should be excluded from analysis (for CTMM analysis).
-- excl_cov_sex_eqtl.txt			list of covariates that should be excluded from analysis, when running sex-stratified analyses (for CTMM analysis).
-- excl_cov.txt					list of covariates that should be excluded from analysis (for AEGS analysis).
-- excl_cov_sex.txt				list of covariates that should be excluded from analysis, when running sex-stratified analyses (for AEGS analysis).
-- regions_for_qtl.small.txt		example list of regions (short list).
-- regions_for_qtl.txt			example list of regions.
-- fastQTLAnalyzer.sh			Main analysis-script.
-- fastQTLChecker.sh				Script that checks the analysis output.
-- fastQTLSummarizer.sh			Script that summarizes the fastQTL analysis results.
-- fastQTL_QC.R					R script that does some parsing of results and QC, as well as generating some QC plots.
-- NominalResultsParser.py		Script need to parse the nominal results data to obtain per-locus lists of number of variants, transcripts, and the LocusZoom input file.
-- fastQTLPlotter.sh				Script that generates per transcript (!) for each gene and locus a LocusZoom style plot (CTMM analysis only!).
-- parse_clumps_eqtl.pl			Clumps results per locus -- NOTE: BETA-version; not used yet.
+- ***excl_cov_eqtl.txt*** -- list of covariates that should be excluded from analysis (for CTMM analysis).
+- ***excl_cov_sex_eqtl.txt*** -- list of covariates that should be excluded from analysis, when running sex-stratified analyses (for CTMM analysis).
+- ***excl_cov.txt*** -- list of covariates that should be excluded from analysis (for AEGS analysis).
+- ***excl_cov_sex.txt*** -- list of covariates that should be excluded from analysis, when running sex-stratified analyses (for AEGS analysis).
+- ***regions_for_qtl.small.txt*** -- example list of regions (short list).
+- ***regions_for_qtl.txt*** -- example list of regions.
+- ***fastQTLAnalyzer.sh*** -- Main analysis-script.
+- ***fastQTLChecker.sh*** -- Script that checks the analysis output.
+- ***fastQTLSummarizer.sh*** -- Script that summarizes the fastQTL analysis results.
+- ***fastQTL_QC.R*** -- R script that does some parsing of results and QC, as well as generating some QC plots.
+- ***NominalResultsParser.py*** -- Script need to parse the nominal results data to obtain per-locus lists of number of variants, transcripts, and the LocusZoom input file.
+- ***fastQTLPlotter.sh*** -- Script that generates per transcript (!) for each gene and locus a LocusZoom style plot (CTMM analysis only!).
+- ***parse_clumps_eqtl.pl*** -- Clumps results per locus -- NOTE: BETA-version; not used yet.
 
 
 ####_NOTE: at the moment these scripts are changing frequently, but for most analyses it should work. Please contact me for support._
