@@ -105,8 +105,8 @@ echo "+                                                                         
 echo "+                                                                                                       +"
 echo "+ * Written by  : Sander W. van der Laan                                                                +"
 echo "+ * E-mail      : s.w.vanderlaan-2@umcutrecht.nl                                                        +"
-echo "+ * Last update : 2016-10-28                                                                            +"
-echo "+ * Version     : 1.0.0                                                                                 +"
+echo "+ * Last update : 2016-11-09                                                                            +"
+echo "+ * Version     : 1.0.1                                                                                 +"
 echo "+                                                                                                       +"
 echo "+ * Description : This script will set some directories, execute something in a for-loop, and will then +"
 echo "+                 submit this in a job.                                                                 +"
@@ -262,9 +262,11 @@ else
 		
 	done < ${REGIONS}
 
-	###ZIPPING FINAL SUMMARY RESULTS
-	 gzip -v ${SUMMARY}/${STUDYNAME}_QC_qtlnom_summary.txt
-	 gzip -v ${SUMMARY}/${STUDYNAME}_QC_qtlperm_summary.txt
+	### GZIPPING FINAL SUMMARY RESULTS
+	echo ""
+	echo "Compressing the final summary results..."
+	gzip -fv ${SUMMARY}/${STUDYNAME}_QC_qtlnom_summary.txt
+	gzip -fv ${SUMMARY}/${STUDYNAME}_QC_qtlperm_summary.txt
 	
 ### END of if-else statement for the number of command-line arguments passed ###
 fi
