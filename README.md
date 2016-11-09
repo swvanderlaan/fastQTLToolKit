@@ -26,22 +26,22 @@ We have tested fastQTLToolKit on CentOS7, OS X El Capitan (version 10.11.[x]), a
 
 #### Requirements
 
-***For R*** [] These libraries and their dependencies are needed for the R-script to work.
+***For R*** -- These libraries and their dependencies are needed for the R-script to work.
 - "optparse"
 - "tools"
 - "qvalue"
 
-***QCTOOL*** [] Needed for the extraction and conversion of required genotype data. Required: v1.5.
+***QCTOOL*** -- Needed for the extraction and conversion of required genotype data. Required: v1.5.
 
-***SNPTEST*** [] Needed for the calculation of summary statistics of the extracted genotype data. Required: v2.5.2.
+***SNPTEST*** -- Needed for the calculation of summary statistics of the extracted genotype data. Required: v2.5.2.
 
-***fastQTL*** [] Needed to run fastQTL. Required: v2.184.
+***fastQTL*** -- Needed to run fastQTL. Required: v2.184.
 
-***LocusZoom*** [] Needed to generate LocusZoom plots. Required: v1.3.
+***LocusZoom*** -- Needed to generate LocusZoom plots. Required: v1.3.
 
-***BGZip*** [] Needed for VCF conversion and gzipping. Required: as part of the htslib-1.3 package.
+***BGZip*** -- Needed for VCF conversion and gzipping. Required: as part of the htslib-1.3 package.
 
-***Tabix*** [] Needed for VCF indexing. Required: as part of the htslib-1.3 package.
+***Tabix*** -- Needed for VCF indexing. Required: as part of the htslib-1.3 package.
 
 ####_NOTE: the above scripts, tools, and software are all installed on our local system.
 
@@ -89,6 +89,28 @@ You can select the type of analysis by providing the following _obligatory_ 10 a
 * Argument #8 -- text file with excluded covariates, refer to example file.
 * Argument #9 -- qsub e-mail address, e.g. yourname@mailadres.com.
 * Argument #10 -- qsub mail settings, e.g. 'beas' - refer to qsub manual.
+
+--------------
+
+#### Exclusion options
+###_ CTMM/AEGS
+
+- ***DEFAULT*** -- include all CTMM or AEGS samples (note: _only_ carotid endartectomy [CEA] patients are considered for AEGS).
+- ***SMOKER*** -- include only individuals with 'current smoking' status = 'yes'.
+- ***NONSMOKER*** -- include only individuals with 'current smoking' status = 'no'.
+- ***MALES*** -- include only 'female' individuals (exclude 'males').
+- ***FEMALES*** -- include only 'male' individuals (exclude 'females').
+- ***T2D*** -- include only individuals _with_ 'type 2 diabetes' based on diagnosis and/or medication use.
+- ***NONT2D*** -- include only individuals _without_ 'type 2 diabetes' based on diagnosis and/or medication use.
+
+###_ AEGS specific
+- ***CKD*** -- include only individuals _with_ 'chronic kidney disease' (CKD>2) based on eGFR (using creatinine) using KDOQI criteria.
+- ***NONCKD*** -- include only individuals _without_ 'chronic kidney disease' (CKD>2) based on eGFR (using creatinine) using KDOQI criteria.
+- ***PRE2007*** -- include only individuals operated _before_ 2007.
+- ***POST2007*** -- include only individuals operated _after_ 2007.
+- ***NONAEGS*** -- include all also non-CEA individuals.
+- ***NONAEGSMALES*** -- include all also non-CEA individuals, but only 'female' individuals (exclude 'males').
+- ***NONAEGSFEMALES*** -- include all also non-CEA individuals, but only 'male' individuals (exclude 'females').
 
 --------------
 
