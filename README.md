@@ -26,31 +26,24 @@ We have tested fastQTLToolKit on CentOS7, OS X El Capitan (version 10.11.[x]), a
 
 #### Requirements
 
-***For R*** 
-These libraries and their dependencies are needed for the R-script to work.
+***For R*** [] These libraries and their dependencies are needed for the R-script to work.
 - "optparse"
 - "tools"
 - "qvalue"
 
-***QCTOOL***
-Needed for the extraction and conversion of required genotype data. Required: v1.5.
+***QCTOOL*** [] Needed for the extraction and conversion of required genotype data. Required: v1.5.
 
-***SNPTEST***
-Needed for the calculation of summary statistics of the extracted genotype data. Required: v2.5.2.
+***SNPTEST*** [] Needed for the calculation of summary statistics of the extracted genotype data. Required: v2.5.2.
 
-***fastQTL***
-Needed to run fastQTL. Required: v2.184.
+***fastQTL*** [] Needed to run fastQTL. Required: v2.184.
 
-***LocusZoom***
-Needed to generate LocusZoom plots. Required: v1.3.
+***LocusZoom*** [] Needed to generate LocusZoom plots. Required: v1.3.
 
-***BGZip***
-Needed for VCF conversion and gzipping. Required: as part of the htslib-1.3 package.
+***BGZip*** [] Needed for VCF conversion and gzipping. Required: as part of the htslib-1.3 package.
 
-***Tabix***
-Needed for VCF indexing. Required: as part of the htslib-1.3 package.
+***Tabix*** [] Needed for VCF indexing. Required: as part of the htslib-1.3 package.
 
-####_NOTE_####: the above scripts, tools, and software are all installed on our local system.
+####_NOTE: the above scripts, tools, and software are all installed on our local system.
 
 --------------
 
