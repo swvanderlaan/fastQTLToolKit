@@ -43,7 +43,7 @@ We have tested fastQTLToolKit on CentOS7, OS X El Capitan (version 10.11.[x]), a
 
 ***Tabix*** -- Needed for VCF indexing. Required: as part of the htslib-1.3 package.
 
-####_NOTE: the above scripts, tools, and software are all installed on our local system.
+####_NOTE: the above scripts, tools, and software are all installed on our local system._
 
 --------------
 
@@ -71,6 +71,7 @@ if [ -d ~/git/GWASToolKit/.git ]; then \
 --------------
 
 #### Quantitative Trait Locus analyses 
+
 You can select the type of analysis by providing the following _obligatory_ 10 arguments. Some relevant statistics, such as HWE, minor allele count (MAC), and coded allele frequency (CAF) will be added to the final summarized result. LocusZoom style figures will be made automatically for _eQTL-analyses_ alone. 
 
 
@@ -93,7 +94,8 @@ You can select the type of analysis by providing the following _obligatory_ 10 a
 --------------
 
 #### Exclusion options
-###_ CTMM/AEGS
+
+####_CTMM/AEGS_
 
 - ***DEFAULT*** -- include all CTMM or AEGS samples (note: _only_ carotid endartectomy [CEA] patients are considered for AEGS).
 - ***SMOKER*** -- include only individuals with 'current smoking' status = 'yes'.
@@ -103,7 +105,7 @@ You can select the type of analysis by providing the following _obligatory_ 10 a
 - ***T2D*** -- include only individuals _with_ 'type 2 diabetes' based on diagnosis and/or medication use.
 - ***NONT2D*** -- include only individuals _without_ 'type 2 diabetes' based on diagnosis and/or medication use.
 
-###_ AEGS specific
+####_AEGS specific_
 - ***CKD*** -- include only individuals _with_ 'chronic kidney disease' (CKD>2) based on eGFR (using creatinine) using KDOQI criteria.
 - ***NONCKD*** -- include only individuals _without_ 'chronic kidney disease' (CKD>2) based on eGFR (using creatinine) using KDOQI criteria.
 - ***PRE2007*** -- include only individuals operated _before_ 2007.
