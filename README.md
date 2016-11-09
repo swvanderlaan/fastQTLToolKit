@@ -84,8 +84,8 @@ You can select the type of analysis by providing the following _obligatory_ 10 a
 * ***Argument #5*** -- project name, e.g. 'CAD'.
 * ***Argument #6*** -- text file with on each line the regions of interest, refer to example files.
 * ***Argument #7*** -- the type of exclusion to apply:
-	- AEMS/CTMM:     DEFAULT/SMOKER/NONSMOKER/MALES/FEMALES/T2D/NONT2D
-	- AEMS-specific: CKD/NONCKD/PRE2007/POST2007/NONAEGS/NONAEGSFEMALES/NONAEGSMALES.
+	- ****AEMS/CTMM**** -- DEFAULT/SMOKER/NONSMOKER/MALES/FEMALES/T2D/NONT2D
+	- ****AEMS-specific**** -- CKD/NONCKD/PRE2007/POST2007/NONAEGS/NONAEGSFEMALES/NONAEGSMALES.
 * ***Argument #8*** -- text file with excluded covariates, refer to example file.
 * ***Argument #9*** -- qsub e-mail address, e.g. yourname@mailadres.com.
 * ***Argument #10*** -- qsub mail settings, e.g. 'beas' - refer to qsub manual.
