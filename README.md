@@ -26,8 +26,8 @@ We have tested fastQTLToolKit on CentOS7, OS X El Capitan (version 10.11.[x]), a
 
 #### Requirements
 
-* ***R Statistics*** -- The scripts are tested in conjunction with 3.3.1+.
-* ***For R*** -- These libraries and their dependencies are needed for the R-script to work. You can find R here: https://www.r-project.org.
+* ***R Statistics*** -- The scripts are tested in conjunction with 3.3.1+. You can find R here: https://www.r-project.org.
+* ***For R*** -- These libraries and their dependencies are needed for the R-script to work. 
 	- "optparse"
 	- "tools"
 	- "qvalue"
