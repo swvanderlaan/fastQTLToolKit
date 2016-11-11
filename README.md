@@ -136,6 +136,9 @@ You can select the type of analysis by providing the following _obligatory_ 10 a
 
 - update NominalResultsParser for mQTL analyses.
 - generate regional plots for mQTL analyses.
+- generalisation: modify 'exclusion type'-part to work with any exclusion list for a particular dataset.
+- generalisation: modify 'input'-data to work with any particular dataset.
+- add in the existing 'make-bed-files' scripts.
 
 --------------
 
