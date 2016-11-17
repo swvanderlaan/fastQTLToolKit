@@ -1086,7 +1086,7 @@ else
 		### Creating a job that will aid in plotting the data.
 		### FOR DEBUGGING
 		###${FASTQCTLADDON}/fastQTLPlotter.sh ${STUDY_TYPE} ${SAMPLE_TYPE} ${REGIONS} ${SUMMARY} ${STUDYNAME}
-		echo "${ROOTDIR}/fastQTLPlotter.sh ${STUDY_TYPE} ${SAMPLE_TYPE} ${REGIONS} ${SUMMARY} ${STUDYNAME}"> ${SUMMARY}/${STUDYNAME}_fastQTLPlot_excl_${EXCLUSION_TYPE}.sh
+		echo "${FASTQCTLADDON}/fastQTLPlotter.sh ${STUDY_TYPE} ${SAMPLE_TYPE} ${REGIONS} ${SUMMARY} ${STUDYNAME}"> ${SUMMARY}/${STUDYNAME}_fastQTLPlot_excl_${EXCLUSION_TYPE}.sh
 		qsub -S /bin/bash -N fastQTLPlot_${STUDYJOBNAME}_excl_${EXCLUSION_TYPE} -hold_jid fastQTLSum_${STUDYJOBNAME}_excl_${EXCLUSION_TYPE} -e ${SUMMARY}/${STUDYNAME}_fastQTLPlot_excl_${EXCLUSION_TYPE}.errors -o ${SUMMARY}/${STUDYNAME}_fastQTLPlot_excl_${EXCLUSION_TYPE}.log -l h_rt=${QUEUE_QCTOOL} -l h_vmem=${VMEM_QCTOOL} -M ${EMAIL} -m ${MAILTYPE} -wd ${SUMMARY} ${SUMMARY}/${STUDYNAME}_fastQTLPlot_excl_${EXCLUSION_TYPE}.sh
 	
 	elif [[ ${STUDY_TYPE} == "AEMS450K1" ]] || [[ ${STUDY_TYPE} == "AEMS450K2" ]]; then

@@ -92,8 +92,8 @@ echo "+                                                                         
 echo "+                                                                                                       +"
 echo "+ * Written by  : Sander W. van der Laan                                                                +"
 echo "+ * E-mail      : s.w.vanderlaan-2@umcutrecht.nl                                                        +"
-echo "+ * Last update : 2016-11-09                                                                            +"
-echo "+ * Version     : 1.0.0                                                                                 +"
+echo "+ * Last update : 2016-11-17                                                                            +"
+echo "+ * Version     : 1.0.1                                                                                 +"
 echo "+                                                                                                       +"
 echo "+ * Description : This script will set some directories, execute something in a for-loop, and will then +"
 echo "+                 submit this in a job.                                                                 +"
@@ -148,13 +148,13 @@ else
 	### CHECKING DATA AND ANALYSIS
 	echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 	echo "Checking whether analyses of loci were properly finished."
-	rm -v ${SUMMARY}/regions_for_qtl.failedCpGs.temp.txt ${ROOTDIR}/analysis.check.txt
-	rm -v ${SUMMARY}/regions_for_qtl.failedCpGs.txt
+	rm -v ${SUMMARY}/regions_for_qtl.failedQTLs.temp.txt ${ROOTDIR}/analysis.check.txt
+	rm -v ${SUMMARY}/regions_for_qtl.failedQTLs.txt
 	rm -v ${SUMMARY}/regions_for_qtl.failedNom.temp.txt
 	rm -v ${SUMMARY}/regions_for_qtl.failedNom.txt
 	rm -v ${SUMMARY}/regions_for_qtl.failedPerm.temp.txt
 	rm -v ${SUMMARY}/regions_for_qtl.failedPerm.txt
-	touch ${SUMMARY}/regions_for_qtl.failedCpGs.temp.txt # 'touching' a file for the complete rerun
+	touch ${SUMMARY}/regions_for_qtl.failedQTLs.temp.txt # 'touching' a file for the complete rerun
 	touch ${SUMMARY}/regions_for_qtl.failedNom.temp.txt # 'touching' a file for the nominal rerun
 	touch ${SUMMARY}/regions_for_qtl.failedPerm.temp.txt # 'touching' a file for the permutation rerun
 	touch ${SUMMARY}/analysis.check.txt # a file containing some information regarding the check on the analysis
@@ -198,7 +198,7 @@ else
 			echo "*** ERROR *** Extraction of data failed for ${VARIANT}."
 			echo "* data extraction: failed" >> ${SUMMARY}/analysis.check.txt
 		    rm -rv ${REGIONALDIR}
-		    echo "${VARIANT} ${LOCUS} ${CHR} ${BP} ${START} ${END} ${WINDOWSIZE} ${TYPE} ${PHENOTYPE}" >> ${SUMMARY}/regions_for_qtl.failedCpGs.temp.txt
+		    echo "${VARIANT} ${LOCUS} ${CHR} ${BP} ${START} ${END} ${WINDOWSIZE} ${TYPE} ${PHENOTYPE}" >> ${SUMMARY}/regions_for_qtl.failedQTLs.temp.txt
 		fi
 		
 		echo ""
@@ -213,7 +213,7 @@ else
 			echo "*** ERROR *** Quality control of extracted data failed for ${VARIANT}."
 		    echo "* data quality control: failed" >> ${SUMMARY}/analysis.check.txt
 		    rm -rv ${REGIONALDIR}
-		    echo "${VARIANT} ${LOCUS} ${CHR} ${BP} ${START} ${END} ${WINDOWSIZE} ${TYPE} ${PHENOTYPE}" >> ${SUMMARY}/regions_for_qtl.failedCpGs.temp.txt
+		    echo "${VARIANT} ${LOCUS} ${CHR} ${BP} ${START} ${END} ${WINDOWSIZE} ${TYPE} ${PHENOTYPE}" >> ${SUMMARY}/regions_for_qtl.failedQTLs.temp.txt
 		fi
 		
 		echo ""
@@ -227,7 +227,7 @@ else
 			echo "*** ERROR *** Calculating general statistics failed for ${VARIANT}."
 			echo "* calculate summary statistics: failed" >> ${SUMMARY}/analysis.check.txt
 			rm -rv ${REGIONALDIR}
-			echo "${VARIANT} ${LOCUS} ${CHR} ${BP} ${START} ${END} ${WINDOWSIZE} ${TYPE} ${PHENOTYPE}" >> ${SUMMARY}/regions_for_qtl.failedCpGs.temp.txt
+			echo "${VARIANT} ${LOCUS} ${CHR} ${BP} ${START} ${END} ${WINDOWSIZE} ${TYPE} ${PHENOTYPE}" >> ${SUMMARY}/regions_for_qtl.failedQTLs.temp.txt
 		fi
 		
 		echo ""
@@ -242,7 +242,7 @@ else
 			echo "*** ERROR *** Conversion to VCF failed for ${VARIANT}."
 			echo "* vcf conversion: failed" >> ${SUMMARY}/analysis.check.txt
 		    rm -rv ${REGIONALDIR}
-		    echo "${VARIANT} ${LOCUS} ${CHR} ${BP} ${START} ${END} ${WINDOWSIZE} ${TYPE} ${PHENOTYPE}" >> ${SUMMARY}/regions_for_qtl.failedCpGs.temp.txt
+		    echo "${VARIANT} ${LOCUS} ${CHR} ${BP} ${START} ${END} ${WINDOWSIZE} ${TYPE} ${PHENOTYPE}" >> ${SUMMARY}/regions_for_qtl.failedQTLs.temp.txt
 		fi
 		
 		echo ""
@@ -256,7 +256,7 @@ else
 			echo "*** ERROR *** GZipping VCF file failed for ${VARIANT}."
 			echo "* gzipping vcf: failed" >> ${SUMMARY}/analysis.check.txt
 			rm -rv ${REGIONALDIR}
-			echo "${VARIANT} ${LOCUS} ${CHR} ${BP} ${START} ${END} ${WINDOWSIZE} ${TYPE} ${PHENOTYPE}" >> ${SUMMARY}/regions_for_qtl.failedCpGs.temp.txt
+			echo "${VARIANT} ${LOCUS} ${CHR} ${BP} ${START} ${END} ${WINDOWSIZE} ${TYPE} ${PHENOTYPE}" >> ${SUMMARY}/regions_for_qtl.failedQTLs.temp.txt
 		fi
 
 		echo ""
@@ -300,21 +300,21 @@ else
 
 	echo ""
 	echo "* Removing duplicates from re-run file."
-	perl ${SOFTWARE}/removedupesv2 ${SUMMARY}/regions_for_qtl.failedCpGs.temp.txt NORM ${SUMMARY}/regions_for_qtl.failedCpGs.txt
+	perl ${SOFTWARE}/removedupesv2 ${SUMMARY}/regions_for_qtl.failedQTLs.temp.txt NORM ${SUMMARY}/regions_for_qtl.failedQTLs.txt
 	perl ${SOFTWARE}/removedupesv2 ${SUMMARY}/regions_for_qtl.failedNom.temp.txt NORM ${SUMMARY}/regions_for_qtl.failedNom.txt
 	perl ${SOFTWARE}/removedupesv2 ${SUMMARY}/regions_for_qtl.failedPerm.temp.txt NORM ${SUMMARY}/regions_for_qtl.failedPerm.txt
 	
 	echo "  - removing temporary files..."
-	rm -v ${SUMMARY}/regions_for_qtl.failedCpGs.temp.txt
+	rm -v ${SUMMARY}/regions_for_qtl.failedQTLs.temp.txt
 	rm -v ${SUMMARY}/regions_for_qtl.failedNom.temp.txt
 	rm -v ${SUMMARY}/regions_for_qtl.failedPerm.temp.txt
 
 	echo ""
 	echo "* Counting totals to be re-run."
-	TOTALCPG=$(cat ${SUMMARY}/regions_for_qtl.failedCpGs.txt | wc -l | awk '{printf ("%'\''d\n", $0)}')
+	TOTALQTL=$(cat ${SUMMARY}/regions_for_qtl.failedQTLs.txt | wc -l | awk '{printf ("%'\''d\n", $0)}')
 	TOTALNOM=$(cat ${SUMMARY}/regions_for_qtl.failedNom.txt | wc -l | awk '{printf ("%'\''d\n", $0)}')
 	TOTALPERM=$(cat ${SUMMARY}/regions_for_qtl.failedPerm.txt | wc -l | awk '{printf ("%'\''d\n", $0)}')
-	echo "  - failed extractions............: "${TOTALCPG}
+	echo "  - failed extractions............: "${TOTALQTL}
 	echo "  - failed nominal analyses.......: "${TOTALNOM}
 	echo "  - failed permutation analyses...: "${TOTALPERM}
 	echo ""	
