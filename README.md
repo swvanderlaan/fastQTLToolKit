@@ -26,22 +26,17 @@ We have tested fastQTLToolKit on CentOS7, OS X El Capitan (version 10.11.[x]), a
 
 #### Requirements
 
-***For R*** -- These libraries and their dependencies are needed for the R-script to work.
-- "optparse"
-- "tools"
-- "qvalue"
-
-***QCTOOL*** -- Needed for the extraction and conversion of required genotype data. Required: v1.5.
-
-***SNPTEST*** -- Needed for the calculation of summary statistics of the extracted genotype data. Required: v2.5.2.
-
-***fastQTL*** -- Needed to run fastQTL. Required: v2.184.
-
-***LocusZoom*** -- Needed to generate LocusZoom plots. Required: v1.3.
-
-***BGZip*** -- Needed for VCF conversion and gzipping. Required: as part of the htslib-1.3 package.
-
-***Tabix*** -- Needed for VCF indexing. Required: as part of the htslib-1.3 package.
+* ***R Statistics*** -- The scripts are tested in conjunction with 3.3.1+. You can find R here: https://www.r-project.org.
+* ***For R*** -- These libraries and their dependencies are needed for the R-script to work. 
+	- "optparse"
+	- "tools"
+	- "qvalue"
+* ***QCTOOL*** -- Needed for the extraction and conversion of required genotype data. Required: v1.5. Download: http://www.well.ox.ac.uk/~gav/resources/qctool_v1.5-linux-x86_64.tgz.
+* ***SNPTEST*** -- Needed for the calculation of summary statistics of the extracted genotype data. Required: v2.5.2. Website: https://mathgen.stats.ox.ac.uk/genetics_software/snptest/snptest.html.
+* ***fastQTL*** -- Needed to run fastQTL. Required: v2.184. Website: http://fastqtl.sourceforge.net.
+* ***LocusZoom*** -- Needed to generate LocusZoom plots. Required: v1.3. Website: http://genome.sph.umich.edu/wiki/LocusZoom_Standalone.
+* ***BGZip*** -- Needed for VCF conversion and gzipping. Required: as part of the htslib-1.3 package. Website: http://www.htslib.org/download/.
+* ***Tabix*** -- Needed for VCF indexing. Required: as part of the htslib-1.3 package. Website: see link above.
 
 ####_NOTE: the above scripts, tools, and software are all installed on our local system._
 
@@ -141,6 +136,9 @@ You can select the type of analysis by providing the following _obligatory_ 10 a
 
 - update NominalResultsParser for mQTL analyses.
 - generate regional plots for mQTL analyses.
+- generalisation: modify 'exclusion type'-part to work with any exclusion list for a particular dataset.
+- generalisation: modify 'input'-data to work with any particular dataset.
+- add in the existing 'make-bed-files' scripts.
 
 --------------
 
