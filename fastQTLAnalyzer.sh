@@ -96,32 +96,22 @@ script_arguments_error() {
 	echo "                 - AEMS450K2: mQTL analysis on plaques or blood in the Athero-Express"
 	echo "                              Methylation Study 450K phase 2."
 	echo "                 - CTMM:      expression QTL (eQTL) analysis in monocytes from CTMM."
-	echo "" 
 	echo " * Argument #2   the sample type must be [AEMS450K1: PLAQUES/BLOOD], "
 	echo "                 [AEMS450K2: PLAQUES], or [CTMM: MONOCYTES]."
-	echo "" 
 	echo " * Argument #3   the root directory, e.g. /hpc/dhl_ec/svanderlaan/projects/test_qtl."
-	echo " " 
 	echo " * Argument #4   where you want stuff to be save inside the rootdir, "
 	echo "                 e.g. mqtl_aems450k1"
-	echo "" 
 	echo " * Argument #5   project name, e.g. 'CAD'."
-	echo "" 
 	echo " * Argument #6   text file with on each line the regions of interest, refer to "
 	echo "                 example file."
-	echo "" 
 	echo " * Argument #7   the type of exclusion to apply: "
 	echo "                 - AEMS/CTMM:     DEFAULT/SMOKER/NONSMOKER/MALES/FEMALES/T2D/NONT2D "
 	echo "                 - AEMS-specific: CKD/NONCKD/PRE2007/POST2007/NONAEGS/NONAEGSFEMALES/NONAEGSMALES."
-	echo "" 
 	echo " * Argument #8   text file with excluded covariates, refer to example file."
-	echo "" 
 	echo " * Argument #9   qsub e-mail address, e.g. s.w.vanderlaan-2@umcutrecht.nl."
-	echo "" 
 	echo " * Argument #10  qsub mail settings, e.g. 'beas' - refer to qsub manual."
 	echo ""
 	echo " An example command would be: "
-	echo ""
 	echo "./fastQTLAnalyzer.sh [arg1] [arg2] [arg3] [arg4] [arg5] [arg6] [arg7] [arg8] [arg9] [arg10]"
 	echo ""
 	echo "========================================================================================================="
@@ -988,9 +978,9 @@ else
 	echo ""
 	### Creating a job that will aid in summarizing the data.
 	### FOR DEBUGGING
-	${FASTQCTLADDON}/fastQTLChecker.sh ${STUDYNAME} ${EXCLUSION_TYPE} ${ROOTDIR} ${RESULTS} ${SUMMARY} ${PROJECTNAME} ${REGIONS}
-	###echo "${FASTQCTLADDON}/fastQTLChecker.sh ${STUDYNAME} ${EXCLUSION_TYPE} ${ROOTDIR} ${RESULTS} ${SUMMARY} ${PROJECTNAME} ${REGIONS} "> ${SUMMARY}/${STUDYNAME}_fastQTLCheck_excl_${EXCLUSION_TYPE}.sh
-	###qsub -S /bin/bash -N fastQTLCheck_${STUDYJOBNAME}_excl_${EXCLUSION_TYPE} -hold_jid QTLqc${STUDYJOBNAME}_excl_${EXCLUSION_TYPE} -e ${SUMMARY}/${STUDYNAME}_fastQTLCheck_excl_${EXCLUSION_TYPE}.errors -o ${SUMMARY}/${STUDYNAME}_fastQTLCheck_excl_${EXCLUSION_TYPE}.log -l h_rt=${QUEUE_QCTOOL} -l h_vmem=${VMEM_QCTOOL} -M ${EMAIL} -m ${MAILTYPE} -wd ${SUMMARY} ${SUMMARY}/${STUDYNAME}_fastQTLCheck_excl_${EXCLUSION_TYPE}.sh
+	###${FASTQCTLADDON}/fastQTLChecker.sh ${STUDYNAME} ${EXCLUSION_TYPE} ${ROOTDIR} ${RESULTS} ${SUMMARY} ${PROJECTNAME} ${REGIONS}
+	echo "${FASTQCTLADDON}/fastQTLChecker.sh ${STUDYNAME} ${EXCLUSION_TYPE} ${ROOTDIR} ${RESULTS} ${SUMMARY} ${PROJECTNAME} ${REGIONS} "> ${SUMMARY}/${STUDYNAME}_fastQTLCheck_excl_${EXCLUSION_TYPE}.sh
+	qsub -S /bin/bash -N fastQTLCheck_${STUDYJOBNAME}_excl_${EXCLUSION_TYPE} -hold_jid QTLqc${STUDYJOBNAME}_excl_${EXCLUSION_TYPE} -e ${SUMMARY}/${STUDYNAME}_fastQTLCheck_excl_${EXCLUSION_TYPE}.errors -o ${SUMMARY}/${STUDYNAME}_fastQTLCheck_excl_${EXCLUSION_TYPE}.log -l h_rt=${QUEUE_QCTOOL} -l h_vmem=${VMEM_QCTOOL} -M ${EMAIL} -m ${MAILTYPE} -wd ${SUMMARY} ${SUMMARY}/${STUDYNAME}_fastQTLCheck_excl_${EXCLUSION_TYPE}.sh
 	
 	echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 
