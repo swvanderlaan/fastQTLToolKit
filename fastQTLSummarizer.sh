@@ -2,17 +2,17 @@
 #
 # You can use the variables below (indicated by "#$") to set some things for the 
 # submission system.
-#$ -S /bin/bash # the type of BASH you'd like to use
-#$ -N fastQTLSummarizer_v1 # the name of this script
-#$ -hold_jid some_other_basic_bash_script # the current script (basic_bash_script) will hold until some_other_basic_bash_script has finished
-#$ -o /hpc/dhl_ec/svanderlaan/projects/test_mqtl/fastQTLSummarizer_v1.log # the log file of this job
-#$ -e /hpc/dhl_ec/svanderlaan/projects/test_mqtl/fastQTLSummarizer_v1.errors # the error file of this job
-#$ -l h_rt=04:00:00 # h_rt=[max time, hh:mm:ss, e.g. 02:02:01] - this is the time you think the script will take
-#$ -l h_vmem=8G #  h_vmem=[max. mem, e.g. 45G] - this is the amount of memory you think your script will use
+# -S /bin/bash # the type of BASH you'd like to use
+# -N fastQTLSummarizer_v1 # the name of this script
+# -hold_jid some_other_basic_bash_script # the current script (basic_bash_script) will hold until some_other_basic_bash_script has finished
+# -o /hpc/dhl_ec/svanderlaan/projects/test_mqtl/fastQTLSummarizer_v1.log # the log file of this job
+# -e /hpc/dhl_ec/svanderlaan/projects/test_mqtl/fastQTLSummarizer_v1.errors # the error file of this job
+# -l h_rt=04:00:00 # h_rt=[max time, hh:mm:ss, e.g. 02:02:01] - this is the time you think the script will take
+# -l h_vmem=8G #  h_vmem=[max. mem, e.g. 45G] - this is the amount of memory you think your script will use
 # -l tmpspace=32G # this is the amount of temporary space you think your script will use
-#$ -M s.w.vanderlaan-2@umcutrecht.nl # you can send yourself emails when the job is done; "-M" and "-m" go hand in hand
-#$ -m ea # you can choose: b=begin of job; e=end of job; a=abort of job; s=suspended job; n=no mail is send
-#$ -cwd # set the job start to the current directory - so all the things in this script are relative to the current directory!!!
+# -M s.w.vanderlaan-2@umcutrecht.nl # you can send yourself emails when the job is done; "-M" and "-m" go hand in hand
+# -m ea # you can choose: b=begin of job; e=end of job; a=abort of job; s=suspended job; n=no mail is send
+# -cwd # set the job start to the current directory - so all the things in this script are relative to the current directory!!!
 #
 # Another useful tip: you can set a job to run after another has finished. Name the job 
 # with "-N SOMENAME" and hold the other job with -hold_jid SOMENAME". 
@@ -70,23 +70,15 @@ script_arguments_error() {
 	echo "                - AEMS450K2: mQTL analysis on plaques or blood in the Athero-Express"
 	echo "                             Methylation Study 450K phase 2."
 	echo "                - CTMM:      expression QTL (eQTL) analysis in monocytes from CTMM."
-	echo ""
 	echo " * Argument #2  the sample type must be [AEMS450K1: PLAQUES/BLOOD], "
 	echo "                [AEMS450K2: PLAQUES], or [CTMM: MONOCYTES]."
-	echo ""
 	echo " * Argument #3  the root directory, e.g. /hpc/dhl_ec/svanderlaan/projects/test_qtl."
-	echo " "
 	echo " * Argument #4  where you want stuff to be save inside the rootdir, "
 	echo "                e.g. mqtl_aems450k1."
-	echo ""
 	echo " * Argument #5  project name, e.g. 'CAD'."
-	echo ""
 	echo " * Argument #6  summary directory to put all summarized files in."
-	echo ""
 	echo " * Argument #7  directory in which the fastQTL results are saved."
-	echo ""
 	echo " * Argument #8  file containing the regions of interest."
-	echo ""
 	echo " * Argument #9  exclusion type."
 	echo ""
 	echo " An example command would be: "
@@ -105,8 +97,8 @@ echo "+                                                                         
 echo "+                                                                                                       +"
 echo "+ * Written by  : Sander W. van der Laan                                                                +"
 echo "+ * E-mail      : s.w.vanderlaan-2@umcutrecht.nl                                                        +"
-echo "+ * Last update : 2016-11-09                                                                            +"
-echo "+ * Version     : 1.0.1                                                                                 +"
+echo "+ * Last update : 2016-12-06                                                                            +"
+echo "+ * Version     : 1.0.2                                                                                 +"
 echo "+                                                                                                       +"
 echo "+ * Description : This script will set some directories, execute something in a for-loop, and will then +"
 echo "+                 submit this in a job.                                                                 +"

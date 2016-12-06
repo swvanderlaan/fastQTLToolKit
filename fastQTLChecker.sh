@@ -2,17 +2,17 @@
 #
 # You can use the variables below (indicated by "#$") to set some things for the 
 # submission system.
-#$ -S /bin/bash # the type of BASH you'd like to use
-#$ -N fastQTLChecker_v1 # the name of this script
-#$ -hold_jid some_other_basic_bash_script # the current script (basic_bash_script) will hold until some_other_basic_bash_script has finished
-#$ -o /hpc/dhl_ec/svanderlaan/projects/test_mqtl/fastQTLChecker_v1.log # the log file of this job
-#$ -e /hpc/dhl_ec/svanderlaan/projects/test_mqtl/fastQTLChecker_v1.errors # the error file of this job
-#$ -l h_rt=04:00:00 # h_rt=[max time, hh:mm:ss, e.g. 02:02:01] - this is the time you think the script will take
-#$ -l h_vmem=8G #  h_vmem=[max. mem, e.g. 45G] - this is the amount of memory you think your script will use
+# -S /bin/bash # the type of BASH you'd like to use
+# -N fastQTLChecker_v1 # the name of this script
+# -hold_jid some_other_basic_bash_script # the current script (basic_bash_script) will hold until some_other_basic_bash_script has finished
+# -o /hpc/dhl_ec/svanderlaan/projects/test_mqtl/fastQTLChecker_v1.log # the log file of this job
+# -e /hpc/dhl_ec/svanderlaan/projects/test_mqtl/fastQTLChecker_v1.errors # the error file of this job
+# -l h_rt=04:00:00 # h_rt=[max time, hh:mm:ss, e.g. 02:02:01] - this is the time you think the script will take
+# -l h_vmem=8G #  h_vmem=[max. mem, e.g. 45G] - this is the amount of memory you think your script will use
 # -l tmpspace=32G # this is the amount of temporary space you think your script will use
-#$ -M s.w.vanderlaan-2@umcutrecht.nl # you can send yourself emails when the job is done; "-M" and "-m" go hand in hand
-#$ -m ea # you can choose: b=begin of job; e=end of job; a=abort of job; s=suspended job; n=no mail is send
-#$ -cwd # set the job start to the current directory - so all the things in this script are relative to the current directory!!!
+# -M s.w.vanderlaan-2@umcutrecht.nl # you can send yourself emails when the job is done; "-M" and "-m" go hand in hand
+# -m ea # you can choose: b=begin of job; e=end of job; a=abort of job; s=suspended job; n=no mail is send
+# -cwd # set the job start to the current directory - so all the things in this script are relative to the current directory!!!
 #
 # Another useful tip: you can set a job to run after another has finished. Name the job 
 # with "-N SOMENAME" and hold the other job with -hold_jid SOMENAME". 
@@ -63,21 +63,14 @@ script_arguments_error() {
 	echo "                                              OPTION LIST"
 	echo ""
 	echo " * Argument #1  the study name -- set in fastQTLAnalyzer.sh (please refer to there)."
-	echo ""
 	echo " * Argument #2  exclusion type."
-	echo ""
 	echo " * Argument #3  the root directory, e.g. /hpc/dhl_ec/svanderlaan/projects/test_qtl."
-	echo " "
 	echo " * Argument #4  where the results are saved -- set in fastQTLAnalyzer.sh (please refer to there)."
-	echo ""
 	echo " * Argument #4  where the summary is saved -- set in fastQTLAnalyzer.sh (please refer to there)."
-	echo ""
 	echo " * Argument #6  project name, e.g. 'CAD'."
-	echo ""
 	echo " * Argument #7  file containing the regions of interest."
 	echo ""
 	echo " An example command would be: "
-	echo ""
 	echo "./fastQTLChecker.sh [arg1] [arg2] [arg3] [arg4] [arg5] [arg6] [arg7]"
 	echo ""
 	echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
@@ -92,8 +85,8 @@ echo "+                                                                         
 echo "+                                                                                                       +"
 echo "+ * Written by  : Sander W. van der Laan                                                                +"
 echo "+ * E-mail      : s.w.vanderlaan-2@umcutrecht.nl                                                        +"
-echo "+ * Last update : 2016-11-17                                                                            +"
-echo "+ * Version     : 1.0.1                                                                                 +"
+echo "+ * Last update : 2016-12-06                                                                            +"
+echo "+ * Version     : 1.0.2                                                                                 +"
 echo "+                                                                                                       +"
 echo "+ * Description : This script will set some directories, execute something in a for-loop, and will then +"
 echo "+                 submit this in a job.                                                                 +"
@@ -197,7 +190,7 @@ else
 		else
 			echo "*** ERROR *** Extraction of data failed for ${VARIANT}."
 			echo "* data extraction: failed" >> ${SUMMARY}/analysis.check.txt
-		    rm -rv ${REGIONALDIR}
+		    #rm -rv ${REGIONALDIR}
 		    echo "${VARIANT} ${LOCUS} ${CHR} ${BP} ${START} ${END} ${WINDOWSIZE} ${TYPE} ${PHENOTYPE}" >> ${SUMMARY}/regions_for_qtl.failedQTLs.temp.txt
 		fi
 		
@@ -212,7 +205,7 @@ else
 		else
 			echo "*** ERROR *** Quality control of extracted data failed for ${VARIANT}."
 		    echo "* data quality control: failed" >> ${SUMMARY}/analysis.check.txt
-		    rm -rv ${REGIONALDIR}
+		    #rm -rv ${REGIONALDIR}
 		    echo "${VARIANT} ${LOCUS} ${CHR} ${BP} ${START} ${END} ${WINDOWSIZE} ${TYPE} ${PHENOTYPE}" >> ${SUMMARY}/regions_for_qtl.failedQTLs.temp.txt
 		fi
 		
@@ -226,7 +219,7 @@ else
 		else
 			echo "*** ERROR *** Calculating general statistics failed for ${VARIANT}."
 			echo "* calculate summary statistics: failed" >> ${SUMMARY}/analysis.check.txt
-			rm -rv ${REGIONALDIR}
+			#rm -rv ${REGIONALDIR}
 			echo "${VARIANT} ${LOCUS} ${CHR} ${BP} ${START} ${END} ${WINDOWSIZE} ${TYPE} ${PHENOTYPE}" >> ${SUMMARY}/regions_for_qtl.failedQTLs.temp.txt
 		fi
 		
@@ -241,7 +234,7 @@ else
 		else
 			echo "*** ERROR *** Conversion to VCF failed for ${VARIANT}."
 			echo "* vcf conversion: failed" >> ${SUMMARY}/analysis.check.txt
-		    rm -rv ${REGIONALDIR}
+		    #rm -rv ${REGIONALDIR}
 		    echo "${VARIANT} ${LOCUS} ${CHR} ${BP} ${START} ${END} ${WINDOWSIZE} ${TYPE} ${PHENOTYPE}" >> ${SUMMARY}/regions_for_qtl.failedQTLs.temp.txt
 		fi
 		
@@ -251,11 +244,11 @@ else
 			echo "GZipping VCF file was successfully completed for ${VARIANT}."
 			echo "* gzipping vcf: success" >> ${SUMMARY}/analysis.check.txt
 			rm -v ${REGIONALDIR}/${STUDYNAME}_genvcfgz_${VARIANT}_excl_${EXCLUSION_TYPE}.errors
-			gzip -v ${REGIONALDIR}/${STUDYNAME}_genvcfgz_${VARIANT}_excl_${EXCLUSION_TYPE}.log
+			#gzip -v ${REGIONALDIR}/${STUDYNAME}_genvcfgz_${VARIANT}_excl_${EXCLUSION_TYPE}.log
 		else
 			echo "*** ERROR *** GZipping VCF file failed for ${VARIANT}."
 			echo "* gzipping vcf: failed" >> ${SUMMARY}/analysis.check.txt
-			rm -rv ${REGIONALDIR}
+			#rm -rv ${REGIONALDIR}
 			echo "${VARIANT} ${LOCUS} ${CHR} ${BP} ${START} ${END} ${WINDOWSIZE} ${TYPE} ${PHENOTYPE}" >> ${SUMMARY}/regions_for_qtl.failedQTLs.temp.txt
 		fi
 
@@ -264,16 +257,17 @@ else
 		if [[ -n $(grep "Running time" ${REGIONALDIR}/${STUDYNAME}_QC_qtlnom_${VARIANT}_excl_${EXCLUSION_TYPE}.log) ]]; then
 			echo "Nominal fastQTL analysis successfully completed for ${VARIANT}."
 			echo "* nominal analysis: success" >> ${SUMMARY}/analysis.check.txt
-			rm -v ${REGIONALDIR}/${STUDYNAME}_QC_qtlnom_${VARIANT}_excl_${EXCLUSION_TYPE}.errors 
-			rm -v ${REGIONALDIR}/${STUDYNAME}_QC_qtlnom_${VARIANT}_excl_${EXCLUSION_TYPE}.output
-			rm -v ${REGIONALDIR}/${STUDYNAME}_QC_qtlnom_${VARIANT}_excl_${EXCLUSION_TYPE}.sh
-			gzip -v ${REGIONALDIR}/${STUDYNAME}_QC_qtlnom_${VARIANT}_excl_${EXCLUSION_TYPE}.log			
+			rm -v ${REGIONALDIR}/${STUDYNAME}_QC_qtlnom_${VARIANT}_excl_${EXCLUSION_TYPE}_NOM.errors 
+			rm -v ${REGIONALDIR}/${STUDYNAME}_QC_qtlnom_${VARIANT}_excl_${EXCLUSION_TYPE}_NOM.output
+			rm -v ${REGIONALDIR}/${STUDYNAME}_QC_qtlnom_${VARIANT}_excl_${EXCLUSION_TYPE}_NOM.sh
+			#gzip -v ${REGIONALDIR}/${STUDYNAME}_QC_qtlnom_${VARIANT}_excl_${EXCLUSION_TYPE}.log			
 		else
 			echo "*** ERROR *** Nominal fastQTL analysis failed for ${VARIANT}."
 			echo "* nominal analysis: failed" >> ${SUMMARY}/analysis.check.txt
 			echo "* error message: " >> ${SUMMARY}/analysis.check.txt
 			cat ${REGIONALDIR}/${STUDYNAME}_QC_qtlnom_${VARIANT}_excl_${EXCLUSION_TYPE}.log | grep "ERROR" >> ${SUMMARY}/analysis.check.txt
-		    rm -v ${REGIONALDIR}/${STUDYNAME}_QC_qtlnom_${VARIANT}_excl_${EXCLUSION_TYPE}.*
+		    #rm -v ${REGIONALDIR}/${STUDYNAME}_QC_qtlnom_${VARIANT}_excl_${EXCLUSION_TYPE}.*
+		    #rm -v ${REGIONALDIR}/${STUDYNAME}_QC_qtlnom_${VARIANT}_excl_${EXCLUSION_TYPE}_NOM.*
 		    echo "${VARIANT} ${LOCUS} ${CHR} ${BP} ${START} ${END} ${WINDOWSIZE} ${TYPE} ${PHENOTYPE}" >> ${SUMMARY}/regions_for_qtl.failedNom.temp.txt
 		fi
 		
@@ -282,15 +276,17 @@ else
 		if [[ -n $(grep "Running time" ${REGIONALDIR}/${STUDYNAME}_QC_qtlperm_${VARIANT}_excl_${EXCLUSION_TYPE}.log) ]]; then
 			echo "Permutation fastQTL analysis successfully completed for ${VARIANT}."
 			echo "* permutation analysis: success" >> ${SUMMARY}/analysis.check.txt
-			rm -v ${REGIONALDIR}/${STUDYNAME}_QC_qtlperm_${VARIANT}_PERMUTE.* 
-			gzip -v ${REGIONALDIR}/${STUDYNAME}_QC_qtlperm_${VARIANT}_excl_${EXCLUSION_TYPE}.log			
+			rm -v ${REGIONALDIR}/${STUDYNAME}_QC_qtlperm_${VARIANT}_excl_${EXCLUSION_TYPE}_PERMUTE.errors
+			rm -v ${REGIONALDIR}/${STUDYNAME}_QC_qtlperm_${VARIANT}_excl_${EXCLUSION_TYPE}_PERMUTE.output
+			rm -v ${REGIONALDIR}/${STUDYNAME}_QC_qtlperm_${VARIANT}_excl_${EXCLUSION_TYPE}_PERMUTE.sh
+			#gzip -v ${REGIONALDIR}/${STUDYNAME}_QC_qtlperm_${VARIANT}_excl_${EXCLUSION_TYPE}.log			
 		else
 			echo "*** ERROR *** Permutation fastQTL analysis failed for ${VARIANT}."
 			echo "* permutation analysis: failed" >> ${SUMMARY}/analysis.check.txt
 			echo "* error message: " >> ${SUMMARY}/analysis.check.txt
-			cat ${REGIONALDIR}/${STUDYNAME}_QC_qtlnom_${VARIANT}_excl_${EXCLUSION_TYPE}.log | grep "ERROR" >> ${SUMMARY}/analysis.check.txt
-		    rm -v ${REGIONALDIR}/${STUDYNAME}_QC_qtlperm_${VARIANT}_excl_${EXCLUSION_TYPE}.*
-		    rm -v ${REGIONALDIR}/${STUDYNAME}_QC_qtlperm_${VARIANT}_PERMUTE.*
+			cat ${REGIONALDIR}/${STUDYNAME}_QC_qtlnom_${VARIANT}_excl_${EXCLUSION_TYPE}_PERMUTE.log | grep "ERROR" >> ${SUMMARY}/analysis.check.txt
+		    #rm -v ${REGIONALDIR}/${STUDYNAME}_QC_qtlperm_${VARIANT}_excl_${EXCLUSION_TYPE}.*
+		    #rm -v ${REGIONALDIR}/${STUDYNAME}_QC_qtlperm_${VARIANT}_excl_${EXCLUSION_TYPE}_PERMUTE.*
 		    echo "${VARIANT} ${LOCUS} ${CHR} ${BP} ${START} ${END} ${WINDOWSIZE} ${TYPE} ${PHENOTYPE}" >> ${SUMMARY}/regions_for_qtl.failedPerm.temp.txt
 		fi
 
