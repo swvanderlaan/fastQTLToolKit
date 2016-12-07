@@ -1,19 +1,18 @@
 #!/bin/bash
 #
-# You can use the variables below (indicated by "#$") to set some things for the 
-# submission system.
-#$ -S /bin/bash # the type of BASH you'd like to use
-#$ -N fastQTLAnalyzer_v2 # the name of this script
-#$ -hold_jid some_other_basic_bash_script # the current script (basic_bash_script) will hold until some_other_basic_bash_script has finished
-#$ -o /hpc/dhl_ec/svanderlaan/projects/test_mqtl/fastQTLAnalyzer_v2.log # the log file of this job
-#$ -e /hpc/dhl_ec/svanderlaan/projects/test_mqtl/fastQTLAnalyzer_v2.errors # the error file of this job
-#$ -l h_rt=04:00:00 # h_rt=[max time, hh:mm:ss, e.g. 02:02:01] - this is the time you think the script will take
-#$ -l h_vmem=8G #  h_vmem=[max. mem, e.g. 45G] - this is the amount of memory you think your script will use
-# -l tmpspace=32G # this is the amount of temporary space you think your script will use
-#$ -M s.w.vanderlaan-2@umcutrecht.nl # you can send yourself emails when the job is done; "-M" and "-m" go hand in hand
-#$ -m ea # you can choose: b=begin of job; e=end of job; a=abort of job; s=suspended job; n=no mail is send
-#$ -cwd # set the job start to the current directory - so all the things in this script are relative to the current directory!!!
+#$ -S /bin/bash 																			# the type of BASH you'd like to use
+#$ -N fastQTLAnalyzer_v2  																	# the name of this script
+#$ -hold_jid some_other_basic_bash_script  													# the current script (basic_bash_script) will hold until some_other_basic_bash_script has finished
+#$ -o /hpc/dhl_ec/svanderlaan/projects/test_mqtl/fastQTLAnalyzer_v2.log						# the log file of this job
+#$ -e /hpc/dhl_ec/svanderlaan/projects/test_mqtl/fastQTLAnalyzer_v2.errors					# the error file of this job
+#$ -l h_rt=00:30:00  																		# h_rt=[max time, e.g. 02:02:01] - this is the time you think the script will take
+#$ -l h_vmem=4G  																			#  h_vmem=[max. mem, e.g. 45G] - this is the amount of memory you think your script will use
+# -l tmpspace=64G  																		# this is the amount of temporary space you think your script will use
+#$ -M s.w.vanderlaan-2@umcutrecht.nl  														# you can send yourself emails when the job is done; "-M" and "-m" go hand in hand
+#$ -m a  																					# you can choose: b=begin of job; e=end of job; a=abort of job; s=suspended job; n=no mail is send
+#$ -cwd  																					# set the job start to the current directory - so all the things in this script are relative to the current directory!!!
 #
+# You can use the variables above (indicated by "#$") to set some things for the submission system.
 # Another useful tip: you can set a job to run after another has finished. Name the job 
 # with "-N SOMENAME" and hold the other job with -hold_jid SOMENAME". 
 # Further instructions: https://wiki.bioinformatics.umcutrecht.nl/bin/view/HPC/HowToS#Run_a_job_after_your_other_jobs
@@ -29,7 +28,10 @@
 ###
 ### * source arguments list, so ./fastQTLAnalyzer.sh arguments_file.txt
 ###
-### --- THESE COULD BE ARGUMENTS --- ###
+### SETTING DIRECTORIES (from configuration file).
+### Loading the configuration file (please refer to the MetaGWASToolKit-Manual for specifications of this file). 
+### source ${1} # Depends on arg1.
+### --- THESE COULD BE ARGUMENTS --- ### 
 ### * REGIONS=${PROJECT}/regions_for_qtl.small.txt # regions_for_eqtl.txt OR regions_for_qtl.small.txt; [arg5]
 ### * PROJECTNAME="CAD" # [arg6]
 ### * EXCLUSION_COV="${PROJECT}/excl_cov.txt" # [arg7]
@@ -54,6 +56,30 @@
 ### * 
 ### * 
 ### * 
+
+### Creating display functions
+### Setting colouring
+NONE='\033[00m'
+BOLD='\033[1m'
+FLASHING='\033[5m'
+UNDERLINE='\033[4m'
+
+RED='\033[01;31m'
+GREEN='\033[01;32m'
+YELLOW='\033[01;33m'
+PURPLE='\033[01;35m'
+CYAN='\033[01;36m'
+WHITE='\033[01;37m'
+
+function echobold { #'echobold' is the function name
+    echo -e "${BOLD}${1}${NONE}" # this is whatever the function needs to execute, note ${1} is the text for echo
+}
+function echoerrorflash { 
+    echo -e "${RED}${BOLD}${FLASHING}${1}${NONE}" 
+}
+function echoerror { 
+    echo -e "${RED}${1}${NONE}"
+}
 
 script_copyright_message() {
 	echo ""
@@ -82,57 +108,57 @@ script_copyright_message() {
 }
 
 script_arguments_error() {
-	echo "Number of arguments found "$#"."
-	echo ""
-	echo "$1" # additional error message
-	echo ""
-	echo "========================================================================================================="
-	echo "                                              OPTION LIST"
-	echo ""
-	echo " * Argument #1   indicate which study type you want to analyze, so either [AEMS450K1/AEMS450K2/CTMM]:"
-	echo "                 - AEMS450K1: methylation quantitative trait locus (mQTL) analysis "
-	echo "                              on plaques or blood in the Athero-Express Methylation "
-	echo "                              Study 450K phase 1."
-	echo "                 - AEMS450K2: mQTL analysis on plaques or blood in the Athero-Express"
-	echo "                              Methylation Study 450K phase 2."
-	echo "                 - CTMM:      expression QTL (eQTL) analysis in monocytes from CTMM."
-	echo " * Argument #2   the sample type must be [AEMS450K1: PLAQUES/BLOOD], "
-	echo "                 [AEMS450K2: PLAQUES], or [CTMM: MONOCYTES]."
-	echo " * Argument #3   the root directory, e.g. /hpc/dhl_ec/svanderlaan/projects/test_qtl."
-	echo " * Argument #4   where you want stuff to be save inside the rootdir, "
-	echo "                 e.g. mqtl_aems450k1"
-	echo " * Argument #5   project name, e.g. 'CAD'."
-	echo " * Argument #6   text file with on each line the regions of interest, refer to "
-	echo "                 example file."
-	echo " * Argument #7   the type of exclusion to apply: "
-	echo "                 - AEMS/CTMM:     DEFAULT/SMOKER/NONSMOKER/MALES/FEMALES/T2D/NONT2D "
-	echo "                 - AEMS-specific: CKD/NONCKD/PRE2007/POST2007/NONAEGS/NONAEGSFEMALES/NONAEGSMALES."
-	echo " * Argument #8   text file with excluded covariates, refer to example file."
-	echo " * Argument #9   qsub e-mail address, e.g. s.w.vanderlaan-2@umcutrecht.nl."
-	echo " * Argument #10  qsub mail settings, e.g. 'beas' - refer to qsub manual."
-	echo ""
-	echo " An example command would be: "
-	echo "./fastQTLAnalyzer.sh [arg1] [arg2] [arg3] [arg4] [arg5] [arg6] [arg7] [arg8] [arg9] [arg10]"
-	echo ""
-	echo "========================================================================================================="
+	echoerror "Number of arguments found "$#"."
+	echoerror ""
+	echoerror "$1" # additional error message
+	echoerror ""
+	echoerror "========================================================================================================="
+	echoerror "                                              OPTION LIST"
+	echoerror ""
+	echoerror " * Argument #1   indicate which study type you want to analyze, so either [AEMS450K1/AEMS450K2/CTMM]:"
+	echoerror "                 - AEMS450K1: methylation quantitative trait locus (mQTL) analysis "
+	echoerror "                              on plaques or blood in the Athero-Express Methylation "
+	echoerror "                              Study 450K phase 1."
+	echoerror "                 - AEMS450K2: mQTL analysis on plaques or blood in the Athero-Express"
+	echoerror "                              Methylation Study 450K phase 2."
+	echoerror "                 - CTMM:      expression QTL (eQTL) analysis in monocytes from CTMM."
+	echoerror " * Argument #2   the sample type must be [AEMS450K1: PLAQUES/BLOOD], "
+	echoerror "                 [AEMS450K2: PLAQUES], or [CTMM: MONOCYTES]."
+	echoerror " * Argument #3   the root directory, e.g. /hpc/dhl_ec/svanderlaan/projects/test_qtl."
+	echoerror " * Argument #4   where you want stuff to be save inside the rootdir, "
+	echoerror "                 e.g. mqtl_aems450k1"
+	echoerror " * Argument #5   project name, e.g. 'CAD'."
+	echoerror " * Argument #6   text file with on each line the regions of interest, refer to "
+	echoerror "                 example file."
+	echoerror " * Argument #7   the type of exclusion to apply: "
+	echoerror "                 - AEMS/CTMM:     DEFAULT/SMOKER/NONSMOKER/MALES/FEMALES/T2D/NONT2D "
+	echoerror "                 - AEMS-specific: CKD/NONCKD/PRE2007/POST2007/NONAEGS/NONAEGSFEMALES/NONAEGSMALES."
+	echoerror " * Argument #8   text file with excluded covariates, refer to example file."
+	echoerror " * Argument #9   qsub e-mail address, e.g. s.w.vanderlaan-2@umcutrecht.nl."
+	echoerror " * Argument #10  qsub mail settings, e.g. 'beas' - refer to qsub manual."
+	echoerror ""
+	echoerror " An example command would be: "
+	echoerror "./fastQTLAnalyzer.sh [arg1] [arg2] [arg3] [arg4] [arg5] [arg6] [arg7] [arg8] [arg9] [arg10]"
+	echoerror ""
+	echoerror "========================================================================================================="
   	# The wrong arguments are passed, so we'll exit the script now!
   	script_copyright_message
   	exit 1
 }
 
-echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-echo "+                                      QUANTITATIVE TRAIT LOCUS ANALYZER                                +"
-echo "+                                                                                                       +"
-echo "+                                                                                                       +"
-echo "+ * Written by  : Sander W. van der Laan                                                                +"
-echo "+ * E-mail      : s.w.vanderlaan-2@umcutrecht.nl                                                        +"
-echo "+ * Last update : 2016-12-06                                                                            +"
-echo "+ * Version     : 2.0.8                                                                                 +"
-echo "+                                                                                                       +"
-echo "+ * Description : This script will set some directories, execute something in a for-loop, and will then +"
-echo "+                 submit this in a job.                                                                 +"
-echo "+                                                                                                       +"
-echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+echobold "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+echobold "+                                      QUANTITATIVE TRAIT LOCUS ANALYZER                                +"
+echobold "+                                                                                                       +"
+echobold "+                                                                                                       +"
+echobold "+ * Written by  : Sander W. van der Laan                                                                +"
+echobold "+ * E-mail      : s.w.vanderlaan-2@umcutrecht.nl                                                        +"
+echobold "+ * Last update : 2016-12-06                                                                            +"
+echobold "+ * Version     : 2.0.8                                                                                 +"
+echobold "+                                                                                                       +"
+echobold "+ * Description : This script will set some directories, execute something in a for-loop, and will then +"
+echobold "+                 submit this in a job.                                                                 +"
+echobold "+                                                                                                       +"
+echobold "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 echo "Today's date and time: "$(date)
 TODAY=$(date +"%Y%m%d")
 echo ""
@@ -149,24 +175,28 @@ SAMPLE_TYPE=${2} # AE: PLAQUES/BLOOD; CTMM: MONOCYTES
 
 ### START of if-else statement for the number of command-line arguments passed ###
 if [[ $# -lt 10 ]]; then 
-	echo "                                     *** Oh no! Computer says no! ***"
+	echoerrorflash "                                     *** Oh no! Computer says no! ***"
 	echo ""
-	script_arguments_error "You must supply at least [10] arguments when running a mQTL or eQTL analysis using Athero-Express or CTMM data!"
+	script_arguments_error "You must supply at least [10] arguments when running a mQTL or eQTL analysis using Athero-Express 
+or CTMM data!"
 	
 elif [[ (${STUDY_TYPE} = "AEMS450K1" || ${STUDY_TYPE} = "AEMS450K2") && ${SAMPLE_TYPE} = "MONOCYTES" ]]; then 
-	echo "                                     *** Oh no! Computer says no! ***"
+	echoerrorflash "                                     *** Oh no! Computer says no! ***"
 	echo ""
-	script_arguments_error "When running a *** mQTL analysis *** using ${STUDY_TYPE}, you must supply 'PLAQUES' or 'BLOOD' as SAMPLE_TYPE [arg2]!"
+	script_arguments_error "When running a *** mQTL analysis *** using ${STUDY_TYPE}, you must supply 'PLAQUES' or 'BLOOD' 
+as SAMPLE_TYPE [arg2]!"
 	
 elif [[ ${STUDY_TYPE} = "AEMS450K2" && ${SAMPLE_TYPE} = "BLOOD" ]]; then 
-	echo "                                     *** Oh no! Computer says no! ***"
+	echoerrorflash "                                     *** Oh no! Computer says no! ***"
 	echo ""
-	script_arguments_error "When running a *** mQTL analysis *** using ${STUDY_TYPE}, you must supply 'PLAQUES' as SAMPLE_TYPE [arg2]!"
+	script_arguments_error "When running a *** mQTL analysis *** using ${STUDY_TYPE}, you must supply 'PLAQUES' as 
+SAMPLE_TYPE [arg2]!"
 	
 elif [[ ${STUDY_TYPE} = "CTMM" && (${SAMPLE_TYPE} = "PLAQUES" || ${SAMPLE_TYPE} = "BLOOD") ]]; then 
-	echo "                                     *** Oh no! Computer says no! ***"
+	echoerrorflash "                                     *** Oh no! Computer says no! ***"
 	echo ""
-	script_arguments_error "When running a *** eQTL analysis *** using ${STUDY_TYPE}, you must supply 'MONOCYTES' as SAMPLE_TYPE [arg2]!"
+	script_arguments_error "When running a *** eQTL analysis *** using ${STUDY_TYPE}, you must supply 'MONOCYTES' as 
+SAMPLE_TYPE [arg2]!"
 	
 else
 	
