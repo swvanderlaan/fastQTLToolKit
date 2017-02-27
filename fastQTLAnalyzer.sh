@@ -26,36 +26,7 @@
 
 ### MoSCoW FEATURE LIST ###
 ###
-### * source arguments list, so ./fastQTLAnalyzer.sh arguments_file.txt
 ###
-### SETTING DIRECTORIES (from configuration file).
-### Loading the configuration file (please refer to the MetaGWASToolKit-Manual for specifications of this file). 
-### source ${1} # Depends on arg1.
-### --- THESE COULD BE ARGUMENTS --- ### 
-### * REGIONS=${PROJECT}/regions_for_qtl.small.txt # regions_for_eqtl.txt OR regions_for_qtl.small.txt; [arg5]
-### * PROJECTNAME="CAD" # [arg6]
-### * EXCLUSION_COV="${PROJECT}/excl_cov.txt" # [arg7]
-### * EXCLUSION_TYPE="DEFAULT" # DEFAULT/SMOKER/NONSMOKER/MALES/FEMALES/T2D/NONT2D [CKD/NONCKD/PRE2007/POST2007/NONAEGS/NONAEGSFEMALES/NONAEGSMALES -- these are AE-specific!!!]  # [arg8]
-### * 
-### * EMAIL="s.w.vanderlaan-2@umcutrecht.nl" # [arg9]
-### * MAILTYPE="as" # [arg10]
-### * 
-### * PERMSTART="100" # [arg9]
-### * PERMEND="1000" # [arg7]
-### * MAF="0.005" # [arg8]
-### * INFO="0.9" # [arg9]
-### * HWE="6" # [arg10]
-### * 
-### * QUEUE_QCTOOL="01:00:00" # [arg11]
-### * VMEM_QCTOOL="4G" # [arg12]
-### * QUEUE_NOM="08:00:00" # [arg13]
-### * VMEM_NOM="4G" # [arg14]
-### * QUEUE_PERM="24:00:00" # [arg15]
-### * VMEM_PERM="4G" # [arg16]
-### * 
-### * 
-### * 
-### * 
 
 ### Creating display functions
 ### Setting colouring
@@ -152,8 +123,8 @@ echobold "+                                                                     
 echobold "+                                                                                                       +"
 echobold "+ * Written by  : Sander W. van der Laan                                                                +"
 echobold "+ * E-mail      : s.w.vanderlaan-2@umcutrecht.nl                                                        +"
-echobold "+ * Last update : 2016-12-06                                                                            +"
-echobold "+ * Version     : 2.0.8                                                                                 +"
+echobold "+ * Last update : 2017-02-27                                                                            +"
+echobold "+ * Version     : 2.0.9                                                                                 +"
 echobold "+                                                                                                       +"
 echobold "+ * Description : This script will set some directories, execute something in a for-loop, and will then +"
 echobold "+                 submit this in a job.                                                                 +"
@@ -396,12 +367,10 @@ else
 	
 		# Exclusion files
 		if [[ ${STUDY_TYPE} == "AEMS450K1" ]] || [[ ${STUDY_TYPE} == "AEMS450K2" ]]; then
-			EXCLUSION_SNPTEST="${GENETICDATA}/exclusion_nonCEA.list"
-			EXCLUSION_FASTQTL="${GENETICDATA}/exclusion_nonCEA.list"
+			EXCLUSION_LIST="${GENETICDATA}/exclusion_nonCEA.list"
 			
 		elif [[ ${STUDY_TYPE} == "CTMM" ]]; then
-			EXCLUSION_SNPTEST="${GENETICDATA}/exclusion_nonCTMM.list"
-			EXCLUSION_FASTQTL="${GENETICDATA}/exclusion_nonCTMM_forFastQTL.list"
+			EXCLUSION_LIST="${GENETICDATA}/exclusion_nonCTMM.list"
 
 		else
 			echo "                        *** ERROR *** "
@@ -431,12 +400,10 @@ else
 	
 		# Exclusion files
 		if [[ ${STUDY_TYPE} == "AEMS450K1" ]] || [[ ${STUDY_TYPE} == "AEMS450K2" ]]; then
-			EXCLUSION_SNPTEST="${GENETICDATA}/exclusion_nonCEA_Females.list"
-			EXCLUSION_FASTQTL="${GENETICDATA}/exclusion_nonCEA_Females.list"
+			EXCLUSION_LIST="${GENETICDATA}/exclusion_nonCEA_Females.list"
 
 		elif [[ ${STUDY_TYPE} == "CTMM" ]]; then
-			EXCLUSION_SNPTEST="${GENETICDATA}/exclusion_nonCTMM_FEMALES.list"
-			EXCLUSION_FASTQTL="${GENETICDATA}/exclusion_nonCTMM_FEMALES_forFastQTL.list"
+			EXCLUSION_LIST="${GENETICDATA}/exclusion_nonCTMM_FEMALES.list"
 			
 		else
 			echo "                        *** ERROR *** "
@@ -467,12 +434,10 @@ else
 	
 		# Exclusion files
 		if [[ ${STUDY_TYPE} == "AEMS450K1" ]] || [[ ${STUDY_TYPE} == "AEMS450K2" ]]; then
-			EXCLUSION_SNPTEST="${GENETICDATA}/exclusion_nonCEA_Males.list"
-			EXCLUSION_FASTQTL="${GENETICDATA}/exclusion_nonCEA_Males.list"
+			EXCLUSION_LIST="${GENETICDATA}/exclusion_nonCEA_Males.list"
 			
 		elif [[ ${STUDY_TYPE} == "CTMM" ]]; then
-			EXCLUSION_SNPTEST="${GENETICDATA}/exclusion_nonCTMM_MALES.list"
-			EXCLUSION_FASTQTL="${GENETICDATA}/exclusion_nonCTMM_MALES_forFastQTL.list"
+			EXCLUSION_LIST="${GENETICDATA}/exclusion_nonCTMM_MALES.list"
 			
 		else
 			echo "                        *** ERROR *** "
@@ -503,12 +468,10 @@ else
 	
 		# Exclusion files
 		if [[ ${STUDY_TYPE} == "AEMS450K1" ]] || [[ ${STUDY_TYPE} == "AEMS450K2" ]]; then
-			EXCLUSION_SNPTEST="${GENETICDATA}/exclusion_nonCEA_nonSMOKER.list"
-			EXCLUSION_FASTQTL="${GENETICDATA}/exclusion_nonCEA_nonSMOKER.list"
+			EXCLUSION_LIST="${GENETICDATA}/exclusion_nonCEA_nonSMOKER.list"
 			
 		elif [[ ${STUDY_TYPE} == "CTMM" ]]; then
-			EXCLUSION_SNPTEST="${GENETICDATA}/exclusion_nonCTMM_nonSMOKER.list"
-			EXCLUSION_FASTQTL="${GENETICDATA}/exclusion_nonCTMM_nonSMOKER_forFastQTL.list"
+			EXCLUSION_LIST="${GENETICDATA}/exclusion_nonCTMM_nonSMOKER.list"
 			
 		else
 			echo "                        *** ERROR *** "
@@ -539,12 +502,10 @@ else
 	
 		# Exclusion files
 		if [[ ${STUDY_TYPE} == "AEMS450K1" ]] || [[ ${STUDY_TYPE} == "AEMS450K2" ]]; then
-			EXCLUSION_SNPTEST="${GENETICDATA}/exclusion_nonCEA_SMOKER.list"
-			EXCLUSION_FASTQTL="${GENETICDATA}/exclusion_nonCEA_SMOKER.list"
+			EXCLUSION_LIST="${GENETICDATA}/exclusion_nonCEA_SMOKER.list"
 			
 		elif [[ ${STUDY_TYPE} == "CTMM" ]]; then
-			EXCLUSION_SNPTEST="${GENETICDATA}/exclusion_nonCTMM_SMOKER.list"
-			EXCLUSION_FASTQTL="${GENETICDATA}/exclusion_nonCTMM_SMOKER_forFastQTL.list"
+			EXCLUSION_LIST="${GENETICDATA}/exclusion_nonCTMM_SMOKER.list"
 			
 		else
 			echo "                        *** ERROR *** "
@@ -575,12 +536,10 @@ else
 	
 		# Exclusion files
 		if [[ ${STUDY_TYPE} == "AEMS450K1" ]] || [[ ${STUDY_TYPE} == "AEMS450K2" ]]; then
-			EXCLUSION_SNPTEST="${GENETICDATA}/exclusion_nonCEA_T2D.list"
-			EXCLUSION_FASTQTL="${GENETICDATA}/exclusion_nonCEA_T2D.list"
+			EXCLUSION_LIST="${GENETICDATA}/exclusion_nonCEA_T2D.list"
 			
 		elif [[ ${STUDY_TYPE} == "CTMM" ]]; then
-			EXCLUSION_SNPTEST="${GENETICDATA}/exclusion_nonCTMM_T2D.list"
-			EXCLUSION_FASTQTL="${GENETICDATA}/exclusion_nonCTMM_T2D_forFastQTL.list"
+			EXCLUSION_LIST="${GENETICDATA}/exclusion_nonCTMM_T2D.list"
 			
 		else
 			echo "                        *** ERROR *** "
@@ -611,12 +570,10 @@ else
 	
 		# Exclusion files
 		if [[ ${STUDY_TYPE} == "AEMS450K1" ]] || [[ ${STUDY_TYPE} == "AEMS450K2" ]]; then
-			EXCLUSION_SNPTEST="${GENETICDATA}/exclusion_nonCEA_nonT2D.list"
-			EXCLUSION_FASTQTL="${GENETICDATA}/exclusion_nonCEA_nonT2D.list"
+			EXCLUSION_LIST="${GENETICDATA}/exclusion_nonCEA_nonT2D.list"
 			
 		elif [[ ${STUDY_TYPE} == "CTMM" ]]; then
-			EXCLUSION_SNPTEST="${GENETICDATA}/exclusion_nonCTMM_nonT2D.list"
-			EXCLUSION_FASTQTL="${GENETICDATA}/exclusion_nonCTMM_nonT2D_forFastQTL.list"
+			EXCLUSION_LIST="${GENETICDATA}/exclusion_nonCTMM_nonT2D.list"
 			
 		else
 			echo "                        *** ERROR *** "
@@ -649,8 +606,7 @@ else
 	
 		# Exclusion files
 		if [[ ${STUDY_TYPE} == "AEMS450K1" ]] || [[ ${STUDY_TYPE} == "AEMS450K2" ]]; then
-			EXCLUSION_SNPTEST="${GENETICDATA}/exclusion_nonCEA_CKD.list"
-			EXCLUSION_FASTQTL="${GENETICDATA}/exclusion_nonCEA_CKD.list"
+			EXCLUSION_LIST="${GENETICDATA}/exclusion_nonCEA_CKD.list"
 			
 		elif [[ ${STUDY_TYPE} == "CTMM" ]]; then
 			echo "The exclusion criterium '${EXCLUSION_TYPE}' does *not* exist for CTMM."
@@ -684,8 +640,7 @@ else
 	
 		# Exclusion files
 		if [[ ${STUDY_TYPE} == "AEMS450K1" ]] || [[ ${STUDY_TYPE} == "AEMS450K2" ]]; then
-			EXCLUSION_SNPTEST="${GENETICDATA}/exclusion_nonCEA_nonCKD.list"
-			EXCLUSION_FASTQTL="${GENETICDATA}/exclusion_nonCEA_nonCKD.list"
+			EXCLUSION_LIST="${GENETICDATA}/exclusion_nonCEA_nonCKD.list"
 			
 		elif [[ ${STUDY_TYPE} == "CTMM" ]]; then
 			echo "The exclusion criterium '${EXCLUSION_TYPE}' does *not* exist for CTMM."
@@ -719,8 +674,7 @@ else
 	
 		# Exclusion files
 		if [[ ${STUDY_TYPE} == "AEMS450K1" ]] || [[ ${STUDY_TYPE} == "AEMS450K2" ]]; then
-			EXCLUSION_SNPTEST="${GENETICDATA}/exclusion_nonCEA_pre2007.list"
-			EXCLUSION_FASTQTL="${GENETICDATA}/exclusion_nonCEA_pre2007.list"
+			EXCLUSION_LIST="${GENETICDATA}/exclusion_nonCEA_pre2007.list"
 			
 		elif [[ ${STUDY_TYPE} == "CTMM" ]]; then
 			echo "The exclusion criterium '${EXCLUSION_TYPE}' does *not* exist for CTMM."
@@ -754,8 +708,7 @@ else
 	
 		# Exclusion files
 		if [[ ${STUDY_TYPE} == "AEMS450K1" ]] || [[ ${STUDY_TYPE} == "AEMS450K2" ]]; then
-			EXCLUSION_SNPTEST="${GENETICDATA}/exclusion_nonCEA_post2007.list"
-			EXCLUSION_FASTQTL="${GENETICDATA}/exclusion_nonCEA_post2007.list"
+			EXCLUSION_LIST="${GENETICDATA}/exclusion_nonCEA_post2007.list"
 			
 		elif [[ ${STUDY_TYPE} == "CTMM" ]]; then
 			echo "The exclusion criterium '${EXCLUSION_TYPE}' does *not* exist for CTMM."
@@ -789,8 +742,7 @@ else
 	
 		# Exclusion files
 		if [[ ${STUDY_TYPE} == "AEMS450K1" ]] || [[ ${STUDY_TYPE} == "AEMS450K2" ]]; then
-			EXCLUSION_SNPTEST="${GENETICDATA}/exclusion_nonAEGS.list"
-			EXCLUSION_FASTQTL="${GENETICDATA}/exclusion_nonAEGS.list"
+			EXCLUSION_LIST="${GENETICDATA}/exclusion_nonAEGS.list"
 			
 		elif [[ ${STUDY_TYPE} == "CTMM" ]]; then
 			echo "The exclusion criterium '${EXCLUSION_TYPE}' does *not* exist for CTMM."
@@ -824,8 +776,7 @@ else
 	
 		# Exclusion files
 		if [[ ${STUDY_TYPE} == "AEMS450K1" ]] || [[ ${STUDY_TYPE} == "AEMS450K2" ]]; then
-			EXCLUSION_SNPTEST="${GENETICDATA}/exclusion_nonFemales.list"
-			EXCLUSION_FASTQTL="${GENETICDATA}/exclusion_nonFemales.list"
+			EXCLUSION_LIST="${GENETICDATA}/exclusion_nonFemales.list"
 			
 		elif [[ ${STUDY_TYPE} == "CTMM" ]]; then
 			echo "The exclusion criterium '${EXCLUSION_TYPE}' does *not* exist for CTMM."
@@ -859,8 +810,7 @@ else
 	
 		# Exclusion files
 		if [[ ${STUDY_TYPE} == "AEMS450K1" ]] || [[ ${STUDY_TYPE} == "AEMS450K2" ]]; then
-			EXCLUSION_SNPTEST="${GENETICDATA}/exclusion_nonMales.list"
-			EXCLUSION_FASTQTL="${GENETICDATA}/exclusion_nonMales.list"
+			EXCLUSION_LIST="${GENETICDATA}/exclusion_nonMales.list"
 			
 		elif [[ ${STUDY_TYPE} == "CTMM" ]]; then
 			echo "The exclusion criterium '${EXCLUSION_TYPE}' does *not* exist for CTMM."
@@ -1142,17 +1092,8 @@ script_copyright_message
 
 	### EXCLUSION LISTS for fastQTL
 	###
-	### CTMM
-	### - exclusion_nonCTMM_forFastQTL.list
-	### - exclusion_nonCTMM_FEMALES_forFastQTL.list
-	### - exclusion_nonCTMM_MALES_forFastQTL.list
-	### - exclusion_nonCTMM_SMOKER_forFastQTL.list
-	### - exclusion_nonCTMM_nonSMOKER_forFastQTL.list
-	### - exclusion_nonCTMM_T2D_forFastQTL.list
-	### - exclusion_nonCTMM_nonT2D_forFastQTL.list
-	###
-	### AEGS
-	### For AEGS the exclusion lists have exactly the same identifiers.
+	### CTMM & AEGS
+	### For CTMM & AEGS the exclusion lists have exactly the same identifiers.
 
 	### EXCLUSION LISTS for SNPTEST
 	###
