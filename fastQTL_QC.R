@@ -5,8 +5,8 @@
 cat("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     fastQTL RESULTS QUALITY CONTROL & PARSER v2
     \n
-    * Version: v2.2.1
-    * Last edit: 2016-10-28
+    * Version: v2.2.2
+    * Last edit: 2017-04-12
     * Created by: Sander W. van der Laan | s.w.vanderlaan-2@umcutrecht.nl
     \n
     * Description:  Results parsing and quality control from fastQTL results using CTMM (eQTL) or 
@@ -42,7 +42,7 @@ install.packages.auto <- function(x) {
     # Update installed packages - this may mean a full upgrade of R, which in turn
     # may not be warrented. 
     #update.packages(ask = FALSE) 
-    eval(parse(text = sprintf("install.packages(\"%s\", dependencies = TRUE)", x)))
+    eval(parse(text = sprintf("install.packages(\"%s\", dependencies = TRUE, repos = \"http://cran-mirror.cs.uu.nl/\")", x)))
   }
   if(isTRUE(x %in% .packages(all.available = TRUE))) { 
     eval(parse(text = sprintf("require(\"%s\")", x)))
