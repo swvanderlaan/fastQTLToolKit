@@ -1,6 +1,8 @@
 fastQTLToolKit
 ============
-This repository contains various scripts in BASH and Python scripts for genetic analyses of (genome-wide) methylation and expression data ('quantitative trait locus', QTL analyses) of the Athero-Express Genomics Studies 1 and 2 (AEGS) or CTMM Genomics Study (CTMM). AEGS contains methylation data using the Illumina Human Methylation 450K BeadChip from carotid plaques (n = 444). CTMM contains expression data using the Illumina Human HT12 v4r2 BeadChip from monocytes (n = 308). AEGS1 was genotyped using Affymetrix SNP 5.0, AEGS2 using Affymetrix Axiom CEU, and CTMM using Affyemtrix Axiom TX (a custom version of the 'Biobank'-chip). Both AEGS and CTMM were imputed using 1000G phase 3 version 5 and GoNL5 as a reference.
+https://doi.org/10.5281/zenodo.908337
+
+This repository contains various scripts in BASH and Python scripts for genetic analyses of (genome-wide) methylation and expression data ('quantitative trait locus', QTL analyses) of the Athero-Express Genomics Studies 1 and 2 (AEGS) or CTMM Genomics Study (CTMM). To perform these QTL analyses we make use of [fastQTL](http://fastqtl.sourceforge.net) developed by the lab of [Prof. Emmanouil (Manolis) Dermitzakis](http://funpopgen.unige.ch) and published in [Bioinformatics](https://www.ncbi.nlm.nih.gov/pubmed/26708335). AEGS contains methylation data using the Illumina Human Methylation 450K BeadChip from carotid plaques (n = 664). CTMM contains expression data using the Illumina Human HT12 v4r2 BeadChip from monocytes (n = 308). AEGS1 was genotyped using Affymetrix SNP 5.0, AEGS2 using Affymetrix Axiom CEU, and CTMM using Affyemtrix Axiom TX (a custom version of the 'Biobank'-chip). Both AEGS and CTMM were imputed using 1000G phase 3 version 5 and GoNL5 as a reference.
 
 All scripts are annotated for debugging purposes - and future reference. Scripts will work within the context of a certain Linux environment (in this case a CentOS7 system on a SUN Grid Engine background). 
 
@@ -67,7 +69,7 @@ if [ -d ~/git/GWASToolKit/.git ]; then \
 
 #### Quantitative Trait Locus analyses 
 
-You can select the type of analysis by providing the following _obligatory_ 10 arguments. Some relevant statistics, such as HWE, minor allele count (MAC), and coded allele frequency (CAF) will be added to the final summarized result. LocusZoom style figures will be made automatically for _eQTL-analyses_ alone. 
+You can select the type of analysis by providing the following _obligatory_ 11 arguments. Some relevant statistics, such as HWE, minor allele count (MAC), and coded allele frequency (CAF) will be added to the final summarized result. LocusZoom style figures will be made automatically for _eQTL-analyses_ alone. 
 
 
 * ***Argument #1*** -- indicate which study type you want to analyze, so either [AEMS450K1/AEMS450K2/CTMM]:
@@ -85,6 +87,7 @@ You can select the type of analysis by providing the following _obligatory_ 10 a
 * ***Argument #8*** -- text file with excluded covariates, refer to example file.
 * ***Argument #9*** -- qsub e-mail address, e.g. yourname@mailadres.com.
 * ***Argument #10*** -- qsub mail settings, e.g. 'beas' - refer to qsub manual.
+* ***Argument #11*** -- configuration file.
 
 --------------
 
@@ -139,11 +142,12 @@ You can select the type of analysis by providing the following _obligatory_ 10 a
 - generalisation: modify 'exclusion type'-part to work with any exclusion list for a particular dataset.
 - generalisation: modify 'input'-data to work with any particular dataset.
 - add in the existing 'make-bed-files' scripts.
+- add in trans-QTL analyses pipeline.
 
 --------------
 
 #### The MIT License (MIT)
-####Copyright (c) 2015-2016 Sander W. van der Laan | s.w.vanderlaan-2 [at] umcutrecht.nl
+####Copyright (c) 2015-2017 Sander W. van der Laan | s.w.vanderlaan-2 [at] umcutrecht.nl
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:   
 
