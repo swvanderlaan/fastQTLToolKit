@@ -124,8 +124,8 @@ echobold "+                                                                     
 echobold "+                                                                                                       +"
 echobold "+ * Written by  : Sander W. van der Laan                                                                +"
 echobold "+ * E-mail      : s.w.vanderlaan-2@umcutrecht.nl                                                        +"
-echobold "+ * Last update : 2017-09-19                                                                            +"
-echobold "+ * Version     : 2.2.0                                                                                 +"
+echobold "+ * Last update : 2017-09-21                                                                            +"
+echobold "+ * Version     : 2.2.1                                                                                 +"
 echobold "+                                                                                                       +"
 echobold "+ * Description : This script will set some directories and variables, and than run a QTL analysis.     +"
 echobold "+                                                                                                       +"
@@ -247,11 +247,11 @@ else
 		#SNPTESTSAMPLEDATA=""
 		SNPTESTOUTPUTDATA="aegs_1kGp3GoNL5"
 		if [[ ${SAMPLE_TYPE} == "PLAQUES" ]]; then
-			FASTQTLDATA="${AEMS450K1}/450k1_Mvalues_plaque.fastQTL.sorted.bed.gz"
-			FASTQTLINDEX="${AEMS450K1}/450k1_Mvalues_plaque.fastQTL.sorted.bed.gz.tbi"
+			FASTQTLDATA="${AEMS450K1}/AEMS450K1_Mvalues_plaque.fastQTL.sorted.bed.gz"
+			FASTQTLINDEX="${AEMS450K1}/AEMS450K1_Mvalues_plaque.fastQTL.sorted.bed.gz.tbi"
 		elif [[ ${STUDY_TYPE} == "BLOOD" ]]; then
-			FASTQTLDATA="${AEMS450K1}/450k1_Mvalues_blood.fastQTL.sorted.bed.gz"
-			FASTQTLINDEX="${AEMS450K1}/450k1_Mvalues_blood.fastQTL.sorted.bed.gz.tbi"
+			FASTQTLDATA="${AEMS450K1}/AEMS450K1_Mvalues_blood.fastQTL.sorted.bed.gz"
+			FASTQTLINDEX="${AEMS450K1}/AEMS450K1_Mvalues_blood.fastQTL.sorted.bed.gz.tbi"
 		else
 			echo "                        *** ERROR *** "
 			echo "Something is rotten in the City of Gotham; most likely a typo. "
@@ -275,8 +275,8 @@ else
 		#SNPTESTSAMPLEDATA=""
 		SNPTESTOUTPUTDATA="aegs_1kGp3GoNL5"
 		if [[ ${SAMPLE_TYPE} == "PLAQUES" ]]; then
-			FASTQTLDATA="${AEMS450K2}/450k2_Mvalues_plaque.fastQTL.sorted.bed.gz"
-			FASTQTLINDEX="${AEMS450K2}/450k2_Mvalues_plaque.fastQTL.sorted.bed.gz.tbi"
+			FASTQTLDATA="${AEMS450K2}/AEMS450K2_Mvalues_plaque.fastQTL.sorted.bed.gz"
+			FASTQTLINDEX="${AEMS450K2}/AEMS450K2_Mvalues_plaque.fastQTL.sorted.bed.gz.tbi"
 		else
 			echo "                        *** ERROR *** "
 			echo "Something is rotten in the City of Gotham; most likely a typo. "
