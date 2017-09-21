@@ -124,11 +124,10 @@ echobold "+                                                                     
 echobold "+                                                                                                       +"
 echobold "+ * Written by  : Sander W. van der Laan                                                                +"
 echobold "+ * E-mail      : s.w.vanderlaan-2@umcutrecht.nl                                                        +"
-echobold "+ * Last update : 2017-03-10                                                                            +"
-echobold "+ * Version     : 2.1.0                                                                                 +"
+echobold "+ * Last update : 2017-09-19                                                                            +"
+echobold "+ * Version     : 2.2.0                                                                                 +"
 echobold "+                                                                                                       +"
-echobold "+ * Description : This script will set some directories, execute something in a for-loop, and will then +"
-echobold "+                 submit this in a job.                                                                 +"
+echobold "+ * Description : This script will set some directories and variables, and than run a QTL analysis.     +"
 echobold "+                                                                                                       +"
 echobold "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 echo "Today's date and time: "$(date)
@@ -211,7 +210,7 @@ else
 
 	### SOURCE THE CONFIGURATION FILE
 	source ${11}
-	
+		
 	### QSUB SETTINGS
 	### --- THESE COULD BE ARGUMENTS --- ###
 	QUEUE_QCTOOL=${QUEUE_QCTOOL_CONFIG}
@@ -239,7 +238,7 @@ else
 		### AEMS450K1 SPECIFIC -- DO NOT CHANGE
 		ORIGINALS=/hpc/dhl_ec/data/_ae_originals
 		GENETICDATA=${ORIGINALS}/AEGS_COMBINED_IMPUTE2_1000Gp3_GoNL5
-		AEMS450K1=${ORIGINALS}/AEMethylS_IlluminaMethylation450K
+		AEMS450K1=${ORIGINALS}/AEMS450K1
 	
 		### for file names
 		STUDYNAME="aegs"
@@ -248,11 +247,11 @@ else
 		#SNPTESTSAMPLEDATA=""
 		SNPTESTOUTPUTDATA="aegs_1kGp3GoNL5"
 		if [[ ${SAMPLE_TYPE} == "PLAQUES" ]]; then
-			FASTQTLDATA="${AEMS450K1}/AEM_mQTL_INPUT_DATA/aems450k1_QC_443872_plaques.bed.gz"
-			FASTQTLINDEX="${AEMS450K1}/AEM_mQTL_INPUT_DATA/aems450k1_QC_443872_plaques.bed.gz.tbi"
+			FASTQTLDATA="${AEMS450K1}/450k1_Mvalues_plaque.fastQTL.sorted.bed.gz"
+			FASTQTLINDEX="${AEMS450K1}/450k1_Mvalues_plaque.fastQTL.sorted.bed.gz.tbi"
 		elif [[ ${STUDY_TYPE} == "BLOOD" ]]; then
-			FASTQTLDATA="${AEMS450K1}/AEM_mQTL_INPUT_DATA/aems450k1_QC_443872_blood.bed.gz"
-			FASTQTLINDEX="${AEMS450K1}/AEM_mQTL_INPUT_DATA/aems450k1_QC_443872_blood.bed.gz.tbi"
+			FASTQTLDATA="${AEMS450K1}/450k1_Mvalues_blood.fastQTL.sorted.bed.gz"
+			FASTQTLINDEX="${AEMS450K1}/450k1_Mvalues_blood.fastQTL.sorted.bed.gz.tbi"
 		else
 			echo "                        *** ERROR *** "
 			echo "Something is rotten in the City of Gotham; most likely a typo. "
@@ -276,11 +275,8 @@ else
 		#SNPTESTSAMPLEDATA=""
 		SNPTESTOUTPUTDATA="aegs_1kGp3GoNL5"
 		if [[ ${SAMPLE_TYPE} == "PLAQUES" ]]; then
-			FASTQTLDATA="${AEMS450K2}/AEM_mQTL_INPUT_DATA/aems450k2_QC_443872_plaques.bed.gz"
-			FASTQTLINDEX="${AEMS450K2}/AEM_mQTL_INPUT_DATA/aems450k2_QC_443872_plaques.bed.gz.tbi"
-		elif [[ ${STUDY_TYPE} == "BLOOD" ]]; then
-			FASTQTLDATA="${AEMS450K2}/AEM_mQTL_INPUT_DATA/aems450k2_QC_443872_blood.bed.gz"
-			FASTQTLINDEX="${AEMS450K2}/AEM_mQTL_INPUT_DATA/aems450k2_QC_443872_blood.bed.gz.tbi"
+			FASTQTLDATA="${AEMS450K2}/450k2_Mvalues_plaque.fastQTL.sorted.bed.gz"
+			FASTQTLINDEX="${AEMS450K2}/450k2_Mvalues_plaque.fastQTL.sorted.bed.gz.tbi"
 		else
 			echo "                        *** ERROR *** "
 			echo "Something is rotten in the City of Gotham; most likely a typo. "
