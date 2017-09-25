@@ -2,7 +2,10 @@ fastQTLToolKit
 ============
 [![DOI](https://zenodo.org/badge/55601648.svg)](https://zenodo.org/badge/latestdoi/55601648)
 
-This repository contains various scripts in BASH and Python scripts for genetic analyses of (genome-wide) methylation and expression data ('quantitative trait locus', QTL analyses) of the Athero-Express Genomics Studies 1 and 2 (AEGS) or CTMM Genomics Study (CTMM). To perform these QTL analyses we make use of [fastQTL](http://fastqtl.sourceforge.net) developed by the lab of [Prof. Emmanouil (Manolis) Dermitzakis](http://funpopgen.unige.ch) and published in [Bioinformatics](https://www.ncbi.nlm.nih.gov/pubmed/26708335). 
+This repository contains various scripts in BASH and Python scripts for genetic analyses of (genome-wide) methylation and expression data ('quantitative trait locus', QTL analyses) of the Athero-Express Genomics Studies 1 and 2 (AEGS) or CTMM Genomics Study (CTMM). 
+
+To perform these QTL analyses we make use of [fastQTL](http://fastqtl.sourceforge.net) developed by the lab of [Prof. Emmanouil (Manolis) Dermitzakis](http://funpopgen.unige.ch) and published in [Bioinformatics](https://www.ncbi.nlm.nih.gov/pubmed/26708335). 
+
 AEGS contains methylation data using the Illumina Human Methylation 450K BeadChip from carotid plaques (n = 664). CTMM contains expression data using the Illumina Human HT12 v4r2 BeadChip from monocytes (n = 308). AEGS1 was genotyped using Affymetrix SNP 5.0, AEGS2 using Affymetrix Axiom CEU, and CTMM using Affyemtrix Axiom TX (a custom version of the 'Biobank'-chip). Both AEGS and CTMM were imputed using 1000G phase 3 version 5 and GoNL5 as a reference.
 
 All scripts are annotated for debugging purposes - and future reference. Scripts will work within the context of a certain Linux environment (in this case a CentOS7 system on a SUN Grid Engine background). 
