@@ -74,8 +74,8 @@ You can select the type of analysis by providing the following _obligatory_ 11 a
 
 
 * ***Argument #1*** -- indicate which study type you want to analyze, so either [AEMS450K1/AEMS450K2/CTMM]:
-	- ***AEMS450K1*** -- methylation quantitative trait locus (mQTL) analysis on plaques or blood in the Athero-Express Methylation Study 450K phase 1.
-	- ***AEMS450K2*** -- mQTL analysis on plaques or blood in the Athero-Express Methylation Study 450K phase 2 [NOTE: this is not yet available.].
+	- ***AEMS450K1*** -- methylation quantitative trait locus (mQTL) analysis on plaques (n = 444) or blood (n = 93) in the Athero-Express Methylation Study 450K phase 1.
+	- ***AEMS450K2*** -- mQTL analysis on plaques in the Athero-Express Methylation Study 450K phase 2 (n = 158).
 	- ***CTMM*** -- expression QTL (eQTL) analysis in monocytes from CTMM.
 * ***Argument #2*** -- the sample type must be [AEMS450K1: PLAQUES/BLOOD], [AEMS450K2: PLAQUES], or [CTMM: MONOCYTES].
 * ***Argument #3*** -- the root directory, e.g. /server/folderX/folderY/folderZ/someqtlanalysis.
@@ -131,13 +131,10 @@ You can select the type of analysis by providing the following _obligatory_ 11 a
 - ***fastQTLPlotter.sh*** -- Script that generates per transcript (!) for each gene and locus a LocusZoom style plot (CTMM analysis only!).
 - ***parse_clumps_eqtl.pl*** -- Clumps results per locus -- NOTE: BETA-version; not used yet.
 
-
-####_NOTE: at the moment these scripts are changing frequently, but for most analyses it should work. Please contact me for support._
-
 --------------
 
 #### Roadmap
-
+fastQTLToolKit will no longer be updated, rather a new QTLToolKit is underway which is based on [QTLTool](https://www.nature.com/articles/ncomms15452) available [here](https://qtltools.github.io/qtltools/). Below a list of features/issues which will handled in QTLToolKit.
 - update NominalResultsParser for mQTL analyses.
 - generate regional plots for mQTL analyses.
 - generalisation: modify 'exclusion type'-part to work with any exclusion list for a particular dataset.
