@@ -8,25 +8,7 @@ To perform these QTL analyses we make use of [fastQTL](http://fastqtl.sourceforg
 
 AEGS contains methylation data using the Illumina Human Methylation 450K BeadChip from carotid plaques (n = 664). CTMM contains expression data using the Illumina Human HT12 v4r2 BeadChip from monocytes (n = 308). AEGS1 was genotyped using Affymetrix SNP 5.0, AEGS2 using Affymetrix Axiom CEU, and CTMM using Affyemtrix Axiom TX (a custom version of the 'Biobank'-chip). Both AEGS and CTMM were imputed using 1000G phase 3 version 5 and GoNL5 as a reference.
 
-All scripts are annotated for debugging purposes - and future reference. Scripts will work within the context of a certain Linux environment (in this case a CentOS7 system on a SUN Grid Engine background). 
-
-The installation procedure is quite straightforward, and only entails two steps consisting of command one-liners that are *easy* to read. You can copy/paste each example command, per block of code. For some steps you need administrator privileges. Follow the steps in consecutive order.
-
-```
-these `mono-type font` illustrate commands illustrate terminal commands. You can copy & paste these.
-```
-
-To make it easier to copy and paste, long commands that stretch over multiple lines are structered as follows:
-
-```
-Multiline commands end with a dash \
-	indent 4 spaces, and continue on the next line. \
-	Copy & paste these whole blocks of code.
-```
-
-Although we made it easy to just select, copy and paste and run these blocks of code, it is not a good practise to blindly copy and paste commands. Try to be aware about what you are doing. And never, never run `sudo` commands without a good reason to do so. 
-
-We have tested fastQTLToolKit on CentOS7, OS X El Capitan (version 10.11.[x]), and macOS Sierra (version 10.12.[x]). 
+All scripts are annotated for debugging purposes - and future reference. Scripts will work within the context of a certain Linux environment (in this case a CentOS7 system on a SUN Grid Engine background). We have tested fastQTLToolKit on CentOS7, OS X El Capitan (version 10.11.[x]), and macOS Sierra (version 10.12.[x]). 
 
 --------------
 
@@ -148,7 +130,7 @@ fastQTLToolKit will no longer be updated, rather a new QTLToolKit is underway wh
 --------------
 
 #### The MIT License (MIT)
-####Copyright (c) 2015-2017 Sander W. van der Laan | s.w.vanderlaan-2 [at] umcutrecht.nl
+##### Copyright (c) 2015-2017 Sander W. van der Laan | s.w.vanderlaan [at] gmail [dot] com.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:   
 
