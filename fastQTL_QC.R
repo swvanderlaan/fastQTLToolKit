@@ -1,12 +1,12 @@
-#!/hpc/local/CentOS7/dhl_ec/software/R-3.3.1/bin/Rscript --vanilla
+#!/hpc/local/CentOS7/dhl_ec/software/R-3.4.0/bin/Rscript --vanilla
 
 # Alternative shebang for local Mac OS X: "#!/usr/local/bin/Rscript --vanilla"
-# Linux version for HPC: #!/hpc/local/CentOS7/dhl_ec/software/R-3.3.1/bin/Rscript --vanilla
+# Linux version for HPC: #!/hpc/local/CentOS7/dhl_ec/software/R-3.4.0/bin/Rscript --vanilla
 cat("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     fastQTL RESULTS QUALITY CONTROL & PARSER v2
     \n
-    * Version: v2.2.2
-    * Last edit: 2017-04-12
+    * Version: v2.2.3
+    * Last edit: 2018-03-12
     * Created by: Sander W. van der Laan | s.w.vanderlaan-2@umcutrecht.nl
     \n
     * Description:  Results parsing and quality control from fastQTL results using CTMM (eQTL) or 

@@ -124,10 +124,12 @@ echobold "+                                                                     
 echobold "+                                                                                                       +"
 echobold "+ * Written by  : Sander W. van der Laan                                                                +"
 echobold "+ * E-mail      : s.w.vanderlaan-2@umcutrecht.nl                                                        +"
-echobold "+ * Last update : 2017-09-24                                                                            +"
-echobold "+ * Version     : 2.2.2                                                                                 +"
+echobold "+ * Last update : 2018-03-12                                                                            +"
+echobold "+ * Version     : 2.2.3                                                                                 +"
 echobold "+                                                                                                       +"
 echobold "+ * Description : This script will set some directories and variables, and than run a QTL analysis.     +"
+echobold "+                 Note: in principle we will move to QTLToolKit, so only small bugs will be fixed and   +"
+echobold "+                 this will project will eventually be archived                                         +"
 echobold "+                                                                                                       +"
 echobold "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 echo "Today's date and time: "$(date)
@@ -179,8 +181,8 @@ else
 	FASTQCTLADDON=${SOFTWARE}/fastQTLToolKit
 	FASTQTLPARSER=${FASTQCTLADDON}/NominalResultsParser.py
 	LZ13=${SOFTWARE}/locuszoom_1.3/bin/locuszoom
-	BGZIP=${SOFTWARE}/htslib-1.3/bgzip
-	TABIX=${SOFTWARE}/htslib-1.3/tabix
+	BGZIP=${SOFTWARE}/bgzip_v1.6
+	TABIX=${SOFTWARE}/tabix_v1.6
 
 	### PROJECT SPECIFIC 
 	ROOTDIR=${3} # the root directory, e.g. /hpc/dhl_ec/svanderlaan/projects/test_qtl; [arg3]

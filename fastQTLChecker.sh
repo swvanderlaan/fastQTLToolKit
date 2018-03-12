@@ -85,8 +85,8 @@ echo "+                                                                         
 echo "+                                                                                                       +"
 echo "+ * Written by  : Sander W. van der Laan                                                                +"
 echo "+ * E-mail      : s.w.vanderlaan-2@umcutrecht.nl                                                        +"
-echo "+ * Last update : 2016-12-06                                                                            +"
-echo "+ * Version     : 1.0.2                                                                                 +"
+echo "+ * Last update : 2018-03-12                                                                            +"
+echo "+ * Version     : 1.0.3                                                                                 +"
 echo "+                                                                                                       +"
 echo "+ * Description : This script will set some directories, execute something in a for-loop, and will then +"
 echo "+                 submit this in a job.                                                                 +"
@@ -123,8 +123,8 @@ else
 	FASTQCTLADDON=${SOFTWARE}/fastQTLToolKit
 	FASTQTLPARSER=${FASTQCTLADDON}/NominalResultsParser.py
 	LZ13=${SOFTWARE}/locuszoom_1.3/bin/locuszoom
-	BGZIP=${SOFTWARE}/htslib-1.3/bgzip
-	TABIX=${SOFTWARE}/htslib-1.3/tabix
+	BGZIP=${SOFTWARE}/bgzip_v1.6
+	TABIX=${SOFTWARE}/tabix_v1.6
 
 	### OVERVIEW OF REGIONS
 	echo ""
